@@ -1,0 +1,21 @@
+[
+  {
+    "id": "celestial-fiendish",
+    "label": "Celestial or Fiendish",
+    "rule": "alignment",
+    "options": [
+      {
+        "id": "celestial",
+        "label": "Celestial",
+        "item": "Celestial",
+        "alignment": "good"
+      },
+      {
+        "id": "fiendish",
+        "label": "Fiendish",
+        "item": "Fiendish",
+        "alignment": "evil"
+      }
+    ]
+  }
+]

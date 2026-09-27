@@ -1,0 +1,12 @@
+{
+  "dest": "src/common",
+  "vars": {
+    "PREFIX": "pfsum-"
+  },
+  "files": [
+    "sheet/collapse.mjs",
+    "sheet/field-bind.mjs",
+    "sheet/formula-preview.mjs",
+    "sheet/kit.css"
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "summon-monster",
+    "label": "Summon Monster",
+    "maxLevel": 9,
+    "quantity": {
+      "0": "1",
+      "1": "1d3",
+      "2+": "1d4+1"
+    }
+  },
+  {
+    "id": "summon-natures-ally",
+    "label": "Summon Nature's Ally",
+    "maxLevel": 9,
+    "quantity": {
+      "0": "1",
+      "1": "1d3",
+      "2+": "1d4+1"
+    }
+  }
+]

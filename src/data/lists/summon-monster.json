@@ -1,0 +1,537 @@
+{
+  "id": "summon-monster",
+  "family": "summon-monster",
+  "label": "Summon Monster",
+  "tiers": {
+    "1": [
+      {
+        "name": "Dire Rat",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dog",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dolphin",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Eagle",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Fire Beetle",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Poisonous Frog",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Pony",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Viper",
+        "templates": "celestial-fiendish"
+      }
+    ],
+    "2": [
+      {
+        "name": "Giant Ant Worker",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Centipede",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Frog",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Spider",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Goblin Dog",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Hyena",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Light Horse",
+        "aliases": [
+          "Horse"
+        ],
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Octopus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Small Air Elemental"
+      },
+      {
+        "name": "Small Earth Elemental"
+      },
+      {
+        "name": "Small Fire Elemental"
+      },
+      {
+        "name": "Small Ice Elemental"
+      },
+      {
+        "name": "Small Lightning Elemental"
+      },
+      {
+        "name": "Small Magma Elemental"
+      },
+      {
+        "name": "Small Mud Elemental"
+      },
+      {
+        "name": "Small Smoke Elemental"
+      },
+      {
+        "name": "Small Water Elemental"
+      },
+      {
+        "name": "Squid",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Wolf",
+        "templates": "celestial-fiendish"
+      }
+    ],
+    "3": [
+      {
+        "name": "Aurochs",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Boar",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Cheetah",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Constrictor Snake",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Crocodile",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Bat",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dretch"
+      },
+      {
+        "name": "Electric Eel",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Ant Soldier",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Gorilla",
+        "aliases": [
+          "Ape"
+        ],
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Lantern Archon"
+      },
+      {
+        "name": "Leopard",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Monitor Lizard",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Shark",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Wolverine",
+        "templates": "celestial-fiendish"
+      }
+    ],
+    "4": [
+      {
+        "name": "Bison",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Deinonychus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Ape",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Boar",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Wolf",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Ant Drone",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Scorpion",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Wasp",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Grizzly Bear",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Hell Hound"
+      },
+      {
+        "name": "Hound Archon"
+      },
+      {
+        "name": "Lion",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Medium Air Elemental"
+      },
+      {
+        "name": "Medium Earth Elemental"
+      },
+      {
+        "name": "Medium Fire Elemental"
+      },
+      {
+        "name": "Medium Ice Elemental"
+      },
+      {
+        "name": "Medium Lightning Elemental"
+      },
+      {
+        "name": "Medium Magma Elemental"
+      },
+      {
+        "name": "Medium Mud Elemental"
+      },
+      {
+        "name": "Medium Smoke Elemental"
+      },
+      {
+        "name": "Medium Water Elemental"
+      },
+      {
+        "name": "Mephit"
+      },
+      {
+        "name": "Pteranodon",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Rhinoceros",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Smoke Mephit"
+      }
+    ],
+    "5": [
+      {
+        "name": "Ankylosaurus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Babau"
+      },
+      {
+        "name": "Bearded Devil"
+      },
+      {
+        "name": "Bralani Azata",
+        "aliases": [
+          "Bralani"
+        ]
+      },
+      {
+        "name": "Dire Lion",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Moray Eel",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Kyton"
+      },
+      {
+        "name": "Large Air Elemental"
+      },
+      {
+        "name": "Large Earth Elemental"
+      },
+      {
+        "name": "Large Fire Elemental"
+      },
+      {
+        "name": "Large Ice Elemental"
+      },
+      {
+        "name": "Large Lightning Elemental"
+      },
+      {
+        "name": "Large Magma Elemental"
+      },
+      {
+        "name": "Large Mud Elemental"
+      },
+      {
+        "name": "Large Smoke Elemental"
+      },
+      {
+        "name": "Large Water Elemental"
+      },
+      {
+        "name": "Orca",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Salamander"
+      },
+      {
+        "name": "Woolly Rhinoceros",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Xill"
+      }
+    ],
+    "6": [
+      {
+        "name": "Dire Bear",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Tiger",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Elasmosaurus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Elephant",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Erinyes Devil",
+        "aliases": [
+          "Erinyes"
+        ]
+      },
+      {
+        "name": "Giant Octopus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Huge Air Elemental"
+      },
+      {
+        "name": "Huge Earth Elemental"
+      },
+      {
+        "name": "Huge Fire Elemental"
+      },
+      {
+        "name": "Huge Ice Elemental"
+      },
+      {
+        "name": "Huge Lightning Elemental"
+      },
+      {
+        "name": "Huge Magma Elemental"
+      },
+      {
+        "name": "Huge Mud Elemental"
+      },
+      {
+        "name": "Huge Smoke Elemental"
+      },
+      {
+        "name": "Huge Water Elemental"
+      },
+      {
+        "name": "Invisible Stalker"
+      },
+      {
+        "name": "Lillend Azata",
+        "aliases": [
+          "Lillend"
+        ]
+      },
+      {
+        "name": "Shadow Demon"
+      },
+      {
+        "name": "Succubus"
+      },
+      {
+        "name": "Triceratops",
+        "templates": "celestial-fiendish"
+      }
+    ],
+    "7": [
+      {
+        "name": "Bebilith"
+      },
+      {
+        "name": "Bone Devil"
+      },
+      {
+        "name": "Brachiosaurus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Crocodile",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Dire Shark Megalodon",
+        "aliases": [
+          "Megalodon",
+          "Dire Shark"
+        ],
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Giant Squid",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Greater Air Elemental"
+      },
+      {
+        "name": "Greater Earth Elemental"
+      },
+      {
+        "name": "Greater Fire Elemental"
+      },
+      {
+        "name": "Greater Ice Elemental"
+      },
+      {
+        "name": "Greater Lightning Elemental"
+      },
+      {
+        "name": "Greater Magma Elemental"
+      },
+      {
+        "name": "Greater Mud Elemental"
+      },
+      {
+        "name": "Greater Smoke Elemental"
+      },
+      {
+        "name": "Greater Water Elemental"
+      },
+      {
+        "name": "Mastodon",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Roc",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Tyrannosaurus",
+        "templates": "celestial-fiendish"
+      },
+      {
+        "name": "Vrock"
+      }
+    ],
+    "8": [
+      {
+        "name": "Barbed Devil"
+      },
+      {
+        "name": "Elder Air Elemental"
+      },
+      {
+        "name": "Elder Earth Elemental"
+      },
+      {
+        "name": "Elder Fire Elemental"
+      },
+      {
+        "name": "Elder Ice Elemental"
+      },
+      {
+        "name": "Elder Lightning Elemental"
+      },
+      {
+        "name": "Elder Magma Elemental"
+      },
+      {
+        "name": "Elder Mud Elemental"
+      },
+      {
+        "name": "Elder Smoke Elemental"
+      },
+      {
+        "name": "Elder Water Elemental"
+      },
+      {
+        "name": "Hezrou"
+      }
+    ],
+    "9": [
+      {
+        "name": "Astral Deva"
+      },
+      {
+        "name": "Ghaele Azata",
+        "aliases": [
+          "Ghaele"
+        ]
+      },
+      {
+        "name": "Glabrezu"
+      },
+      {
+        "name": "Ice Devil"
+      },
+      {
+        "name": "Nalfeshnee"
+      },
+      {
+        "name": "Trumpet Archon"
+      }
+    ]
+  }
+}

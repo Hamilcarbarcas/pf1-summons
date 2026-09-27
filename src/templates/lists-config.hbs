@@ -1,0 +1,22 @@
+<div class="{{css}}lists-body">
+  <p class="hint">{{localize "PF1SUM.Lists.Hint"}}</p>
+
+  {{#if errors.length}}
+  <ul class="{{css}}lists-errors">
+    {{#each errors}}<li>{{this}}</li>{{/each}}
+  </ul>
+  {{/if}}
+
+  <textarea name="overlay" class="{{css}}lists-editor" spellcheck="false">{{text}}</textarea>
+
+  <div class="{{css}}lists-actions">
+    <button type="button" data-action="importOverlay"><i class="fa-solid fa-file-import" inert></i> {{localize "PF1SUM.Lists.Import"}}</button>
+    <button type="button" data-action="exportOverlay"><i class="fa-solid fa-file-export" inert></i> {{localize "PF1SUM.Lists.Export"}}</button>
+    <button type="button" data-action="resetOverlay"><i class="fa-solid fa-rotate-left" inert></i> {{localize "PF1SUM.Lists.Reset"}}</button>
+  </div>
+
+  <details class="{{css}}lists-shipped">
+    <summary>{{localize "PF1SUM.Lists.Shipped"}}</summary>
+    <textarea class="{{css}}lists-editor" readonly spellcheck="false">{{shipped}}</textarea>
+  </details>
+</div>

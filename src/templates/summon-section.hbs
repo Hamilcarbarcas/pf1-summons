@@ -1,0 +1,176 @@
+<div class="{{m}}">
+  <h3 class="form-header {{m}}-header">
+    <i class="fa-solid fa-hat-wizard"></i> {{localize "PF1SUM.Sheet.Title"}}
+  </h3>
+  <div class="{{m}}-body">
+    {{#if isAction}}
+    <div class="form-group">
+      <label class="checkbox"><input type="checkbox" data-pfsum-use-item {{checked useItem}}> {{localize "PF1SUM.Sheet.UseItem"}}</label>
+    </div>
+    {{/if}}
+
+    {{#unless useItem}}
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Mode.Label"}}</label>
+      <div class="form-fields">
+        <select data-field="mode">{{selectOptions modes selected=cfg.mode localize=true}}</select>
+      </div>
+    </div>
+
+    {{#if isFixed}}
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Creatures"}}</h4>
+    <ol class="{{m}}-rows" data-pfsum-drop="entries">
+      {{#each entries as |e|}}
+      <li class="{{@root.m}}-row" data-index="{{e.index}}" data-pfsum-drop="entry">
+        <img class="{{@root.m}}-img" src="{{e.img}}" alt="">
+        {{#if e.uuid}}
+        <a class="{{@root.m}}-link{{#if e.missing}} {{@root.m}}-missing{{/if}}" data-pfsum-open="{{e.uuid}}">{{e.name}}</a>
+        <a class="{{@root.m}}-control" data-pfsum-action="clear-actor" data-tooltip="PF1SUM.Sheet.ClearActor"><i class="fa-solid fa-link-slash" inert></i></a>
+        {{else}}
+        <input type="text" class="{{@root.m}}-name" data-array="fixed.entries" data-key="actor.name" value="{{e.name}}"
+          placeholder="{{localize 'PF1SUM.Sheet.ActorPlaceholder'}}">
+        {{/if}}
+        <input type="text" class="{{@root.m}}-qty" data-array="fixed.entries" data-key="quantity" value="{{e.quantity}}"
+          data-formula data-tooltip="PF1SUM.Sheet.Quantity">
+        <a class="{{@root.m}}-control" data-pfsum-action="remove-entry" data-tooltip="PF1SUM.Sheet.Remove"><i class="fa-solid fa-trash" inert></i></a>
+      </li>
+      {{/each}}
+    </ol>
+    <p class="notes">{{localize "PF1SUM.Sheet.EntriesHint"}}</p>
+    <div class="form-group">
+      <button type="button" data-pfsum-action="add-entry"><i class="fa-solid fa-plus" inert></i> {{localize "PF1SUM.Sheet.AddEntry"}}</button>
+    </div>
+
+    {{#if multi}}
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Pick.Label"}}</label>
+      <div class="form-fields">
+        <select data-field="fixed.pick">{{selectOptions picks selected=cfg.fixed.pick localize=true}}</select>
+      </div>
+    </div>
+    {{/if}}
+    <div class="form-group">
+      <div class="form-fields {{m}}-checks">
+        <label class="checkbox"><input type="checkbox" data-field="fixed.upTo"> {{localize "PF1SUM.Sheet.UpTo"}}</label>
+        <label class="checkbox"><input type="checkbox" data-field="skipDialog"> {{localize "PF1SUM.Sheet.SkipDialog"}}</label>
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if isList}}
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Family"}}</label>
+      <div class="form-fields">
+        <select data-field="list.family">{{selectOptions families selected=cfg.list.family blank=""}}</select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Level"}}</label>
+      <div class="form-fields"><input type="text" data-field="list.level" data-formula placeholder="@sl"></div>
+    </div>
+    {{#if familyLists.length}}
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Lists"}}</label>
+      <div class="form-fields {{m}}-checks">
+        {{#each familyLists as |l|}}
+        <label class="checkbox"><input type="checkbox" data-field="list.lists" value="{{l.id}}"> {{l.label}}</label>
+        {{/each}}
+      </div>
+    </div>
+    <p class="notes">{{localize "PF1SUM.Sheet.ListsHint"}}</p>
+    {{/if}}
+    {{/if}}
+
+    {{#if cfg.mode}}
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Summons"}}</h4>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Duration.Label"}}</label>
+      <div class="form-fields">
+        <input type="text" data-field="duration.value" data-formula placeholder="{{localize 'PF1SUM.Sheet.Duration.FromAction'}}">
+        <select data-field="duration.units">{{selectOptions units selected=cfg.duration.units localize=true}}</select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Range"}}</label>
+      <div class="form-fields">
+        <input type="text" data-field="range" data-formula placeholder="{{localize 'PF1SUM.Sheet.RangeFromUse'}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Disposition.Label"}}</label>
+      <div class="form-fields">
+        <select data-field="disposition">{{selectOptions dispositions selected=cfg.disposition localize=true}}</select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Ownership.Label"}}</label>
+      <div class="form-fields">
+        <select data-field="ownership.mode">{{selectOptions ownerships selected=cfg.ownership.mode localize=true}}</select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.Combat.Label"}}</label>
+      <div class="form-fields">
+        <select data-field="combat">{{selectOptions combats selected=cfg.combat localize=true}}</select>
+      </div>
+    </div>
+
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Items"}}</h4>
+    <ol class="{{m}}-rows" data-pfsum-drop="items">
+      {{#each items as |r|}}
+      <li class="{{@root.m}}-row" data-index="{{r.index}}">
+        {{#if r.img}}<img class="{{@root.m}}-img" src="{{r.img}}" alt="">{{/if}}
+        {{#if r.uuid}}
+        <a class="{{@root.m}}-link" data-pfsum-open="{{r.uuid}}">{{r.name}}</a>
+        {{else}}
+        <input type="text" class="{{@root.m}}-name" data-array="items" data-key="name" value="{{r.name}}"
+          placeholder="{{localize 'PF1SUM.Sheet.ItemPlaceholder'}}">
+        {{/if}}
+        <a class="{{@root.m}}-control" data-pfsum-action="remove-item" data-tooltip="PF1SUM.Sheet.Remove"><i class="fa-solid fa-trash" inert></i></a>
+      </li>
+      {{/each}}
+    </ol>
+    <p class="notes">{{localize "PF1SUM.Sheet.ItemsHint"}}</p>
+    <div class="form-group">
+      <button type="button" data-pfsum-action="add-item"><i class="fa-solid fa-plus" inert></i> {{localize "PF1SUM.Sheet.AddItem"}}</button>
+    </div>
+
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Data"}}</h4>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.CasterLevel"}}</label>
+      <div class="form-fields"><input type="text" data-field="data.cl" data-formula placeholder="@cl"></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.SaveDC"}}</label>
+      <div class="form-fields"><input type="text" data-field="data.saveDC" data-formula placeholder="{{localize 'PF1SUM.Sheet.FromUse'}}"></div>
+    </div>
+    <ol class="{{m}}-rows">
+      {{#each extra as |r|}}
+      <li class="{{@root.m}}-row" data-index="{{r.index}}">
+        <input type="text" class="{{@root.m}}-key" data-array="data.extra" data-key="name" value="{{r.name}}"
+          placeholder="{{localize 'PF1SUM.Sheet.ExtraName'}}">
+        <input type="text" class="{{@root.m}}-name" data-array="data.extra" data-key="value" value="{{r.value}}" data-formula
+          placeholder="{{localize 'PF1SUM.Sheet.ExtraValue'}}">
+        <a class="{{@root.m}}-control" data-pfsum-action="remove-extra" data-tooltip="PF1SUM.Sheet.Remove"><i class="fa-solid fa-trash" inert></i></a>
+      </li>
+      {{/each}}
+    </ol>
+    <p class="notes">{{localize "PF1SUM.Sheet.DataHint"}}</p>
+    <div class="form-group">
+      <button type="button" data-pfsum-action="add-extra"><i class="fa-solid fa-plus" inert></i> {{localize "PF1SUM.Sheet.AddExtra"}}</button>
+    </div>
+
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Animation"}}</h4>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.SummonAnimation"}}</label>
+      <div class="form-fields"><input type="text" data-field="animation.summon" placeholder="{{localize 'PF1SUM.Sheet.Default'}}"></div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sheet.DismissAnimation"}}</label>
+      <div class="form-fields"><input type="text" data-field="animation.dismiss" placeholder="{{localize 'PF1SUM.Sheet.Default'}}"></div>
+    </div>
+    <p class="notes">{{localize "PF1SUM.Sheet.AnimationHint"}}</p>
+    {{/if}}
+    {{/unless}}
+  </div>
+</div>

@@ -1,0 +1,455 @@
+{
+  "id": "summon-natures-ally",
+  "family": "summon-natures-ally",
+  "label": "Summon Nature's Ally",
+  "tiers": {
+    "1": [
+      {
+        "name": "Dire Rat"
+      },
+      {
+        "name": "Dog"
+      },
+      {
+        "name": "Dolphin"
+      },
+      {
+        "name": "Eagle"
+      },
+      {
+        "name": "Fire Beetle"
+      },
+      {
+        "name": "Giant Centipede"
+      },
+      {
+        "name": "Mite"
+      },
+      {
+        "name": "Poisonous Frog"
+      },
+      {
+        "name": "Pony"
+      },
+      {
+        "name": "Stirge"
+      },
+      {
+        "name": "Viper"
+      }
+    ],
+    "2": [
+      {
+        "name": "Giant Ant Worker"
+      },
+      {
+        "name": "Giant Frog"
+      },
+      {
+        "name": "Giant Spider"
+      },
+      {
+        "name": "Goblin Dog"
+      },
+      {
+        "name": "Hyena"
+      },
+      {
+        "name": "Light Horse",
+        "aliases": [
+          "Horse"
+        ]
+      },
+      {
+        "name": "Octopus"
+      },
+      {
+        "name": "Small Air Elemental"
+      },
+      {
+        "name": "Small Earth Elemental"
+      },
+      {
+        "name": "Small Fire Elemental"
+      },
+      {
+        "name": "Small Ice Elemental"
+      },
+      {
+        "name": "Small Lightning Elemental"
+      },
+      {
+        "name": "Small Magma Elemental"
+      },
+      {
+        "name": "Small Mud Elemental"
+      },
+      {
+        "name": "Small Smoke Elemental"
+      },
+      {
+        "name": "Small Water Elemental"
+      },
+      {
+        "name": "Squid"
+      },
+      {
+        "name": "Wolf"
+      }
+    ],
+    "3": [
+      {
+        "name": "Aurochs"
+      },
+      {
+        "name": "Boar"
+      },
+      {
+        "name": "Cheetah"
+      },
+      {
+        "name": "Constrictor Snake"
+      },
+      {
+        "name": "Crocodile"
+      },
+      {
+        "name": "Dire Bat"
+      },
+      {
+        "name": "Electric Eel"
+      },
+      {
+        "name": "Giant Ant Soldier"
+      },
+      {
+        "name": "Giant Crab"
+      },
+      {
+        "name": "Gorilla",
+        "aliases": [
+          "Ape"
+        ]
+      },
+      {
+        "name": "Leopard"
+      },
+      {
+        "name": "Monitor Lizard"
+      },
+      {
+        "name": "Shark"
+      },
+      {
+        "name": "Wolverine"
+      }
+    ],
+    "4": [
+      {
+        "name": "Bison"
+      },
+      {
+        "name": "Deinonychus"
+      },
+      {
+        "name": "Dire Ape"
+      },
+      {
+        "name": "Dire Boar"
+      },
+      {
+        "name": "Dire Wolf"
+      },
+      {
+        "name": "Giant Ant Drone"
+      },
+      {
+        "name": "Giant Scorpion"
+      },
+      {
+        "name": "Giant Stag Beetle"
+      },
+      {
+        "name": "Giant Wasp"
+      },
+      {
+        "name": "Griffon"
+      },
+      {
+        "name": "Grizzly Bear"
+      },
+      {
+        "name": "Lightning Mephit"
+      },
+      {
+        "name": "Lion"
+      },
+      {
+        "name": "Medium Air Elemental"
+      },
+      {
+        "name": "Medium Earth Elemental"
+      },
+      {
+        "name": "Medium Fire Elemental"
+      },
+      {
+        "name": "Medium Ice Elemental"
+      },
+      {
+        "name": "Medium Lightning Elemental"
+      },
+      {
+        "name": "Medium Magma Elemental"
+      },
+      {
+        "name": "Medium Mud Elemental"
+      },
+      {
+        "name": "Medium Smoke Elemental"
+      },
+      {
+        "name": "Medium Water Elemental"
+      },
+      {
+        "name": "Mephit"
+      },
+      {
+        "name": "Owlbear"
+      },
+      {
+        "name": "Pteranodon"
+      },
+      {
+        "name": "Rhinoceros"
+      },
+      {
+        "name": "Satyr"
+      },
+      {
+        "name": "Smoke Mephit"
+      },
+      {
+        "name": "Tiger"
+      }
+    ],
+    "5": [
+      {
+        "name": "Ankylosaurus"
+      },
+      {
+        "name": "Cyclops"
+      },
+      {
+        "name": "Dire Lion"
+      },
+      {
+        "name": "Ettin"
+      },
+      {
+        "name": "Giant Moray Eel"
+      },
+      {
+        "name": "Girallon"
+      },
+      {
+        "name": "Large Air Elemental"
+      },
+      {
+        "name": "Large Earth Elemental"
+      },
+      {
+        "name": "Large Fire Elemental"
+      },
+      {
+        "name": "Large Ice Elemental"
+      },
+      {
+        "name": "Large Lightning Elemental"
+      },
+      {
+        "name": "Large Magma Elemental"
+      },
+      {
+        "name": "Large Mud Elemental"
+      },
+      {
+        "name": "Large Smoke Elemental"
+      },
+      {
+        "name": "Large Water Elemental"
+      },
+      {
+        "name": "Manticore"
+      },
+      {
+        "name": "Orca"
+      },
+      {
+        "name": "Woolly Rhinoceros"
+      }
+    ],
+    "6": [
+      {
+        "name": "Bulette"
+      },
+      {
+        "name": "Dire Bear"
+      },
+      {
+        "name": "Dire Tiger"
+      },
+      {
+        "name": "Elasmosaurus"
+      },
+      {
+        "name": "Elephant"
+      },
+      {
+        "name": "Giant Octopus"
+      },
+      {
+        "name": "Hill Giant"
+      },
+      {
+        "name": "Huge Air Elemental"
+      },
+      {
+        "name": "Huge Earth Elemental"
+      },
+      {
+        "name": "Huge Fire Elemental"
+      },
+      {
+        "name": "Huge Ice Elemental"
+      },
+      {
+        "name": "Huge Lightning Elemental"
+      },
+      {
+        "name": "Huge Magma Elemental"
+      },
+      {
+        "name": "Huge Mud Elemental"
+      },
+      {
+        "name": "Huge Smoke Elemental"
+      },
+      {
+        "name": "Huge Water Elemental"
+      },
+      {
+        "name": "Stegosaurus"
+      },
+      {
+        "name": "Stone Giant"
+      },
+      {
+        "name": "Triceratops"
+      }
+    ],
+    "7": [
+      {
+        "name": "Brachiosaurus"
+      },
+      {
+        "name": "Dire Crocodile"
+      },
+      {
+        "name": "Dire Shark Megalodon",
+        "aliases": [
+          "Megalodon",
+          "Dire Shark"
+        ]
+      },
+      {
+        "name": "Fire Giant"
+      },
+      {
+        "name": "Frost Giant"
+      },
+      {
+        "name": "Giant Squid"
+      },
+      {
+        "name": "Greater Air Elemental"
+      },
+      {
+        "name": "Greater Earth Elemental"
+      },
+      {
+        "name": "Greater Fire Elemental"
+      },
+      {
+        "name": "Greater Ice Elemental"
+      },
+      {
+        "name": "Greater Lightning Elemental"
+      },
+      {
+        "name": "Greater Magma Elemental"
+      },
+      {
+        "name": "Greater Mud Elemental"
+      },
+      {
+        "name": "Greater Smoke Elemental"
+      },
+      {
+        "name": "Greater Water Elemental"
+      },
+      {
+        "name": "Mastodon"
+      },
+      {
+        "name": "Roc"
+      },
+      {
+        "name": "Tyrannosaurus"
+      }
+    ],
+    "8": [
+      {
+        "name": "Cloud Giant"
+      },
+      {
+        "name": "Elder Air Elemental"
+      },
+      {
+        "name": "Elder Earth Elemental"
+      },
+      {
+        "name": "Elder Fire Elemental"
+      },
+      {
+        "name": "Elder Ice Elemental"
+      },
+      {
+        "name": "Elder Lightning Elemental"
+      },
+      {
+        "name": "Elder Magma Elemental"
+      },
+      {
+        "name": "Elder Mud Elemental"
+      },
+      {
+        "name": "Elder Smoke Elemental"
+      },
+      {
+        "name": "Elder Water Elemental"
+      },
+      {
+        "name": "Purple Worm"
+      }
+    ],
+    "9": [
+      {
+        "name": "Pixie"
+      },
+      {
+        "name": "Storm Giant"
+      }
+    ]
+  }
+}

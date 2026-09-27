@@ -1,0 +1,247 @@
+{
+  "PF1SUM": {
+    "Settings": {
+      "Sources": {
+        "Name": "Compendium Sources",
+        "Label": "Configure",
+        "Hint": "Which compendiums summons and their items come from, in priority order."
+      },
+      "SummonAnimation": {
+        "Name": "Summon animation",
+        "Hint": "Sequencer database key or file path played where a summon appears. Blank for none."
+      },
+      "DismissAnimation": {
+        "Name": "Dismiss animation",
+        "Hint": "Sequencer database key or file path played where a summon leaves. Blank for none."
+      },
+      "DismissAtZeroHp": {
+        "Name": "Dismiss at 0 HP",
+        "Hint": "Remove a summon when its hit points drop to 0 or lower."
+      },
+      "AddToCombat": {
+        "Name": "Add summons to combat",
+        "Hint": "Add summons to the active combat right after their summoner."
+      },
+      "GroupWithSummoner": {
+        "Name": "Group summons with their summoner",
+        "Hint": "With Astora's grouped initiative, summons join their summoner's group and act on its turn."
+      },
+      "Lists": {
+        "Name": "Summon Lists",
+        "Label": "Edit",
+        "Hint": "Add to or change the shipped summon lists, families and templates."
+      }
+    },
+    "Lists": {
+      "Title": "Summon Lists",
+      "Hint": "Your changes on top of the shipped data, by id: the same id replaces, a new id adds, \"disabled\": true removes.",
+      "Save": "Save",
+      "Saved": "Summon lists saved.",
+      "Import": "Import",
+      "Export": "Export",
+      "Reset": "Clear changes",
+      "Shipped": "Shipped data (read-only, for copying)",
+      "ResetConfirm": {
+        "Title": "Clear Summon List Changes",
+        "Body": "Empty the editor? Nothing is saved until you press Save."
+      },
+      "Error": {
+        "Json": "Not valid JSON: {error}",
+        "NotObject": "The changes must be a JSON object.",
+        "UnknownSection": "Unknown section \"{key}\". Use {sections}.",
+        "NotArray": "\"{section}\" must be an array.",
+        "RowNotObject": "{at}: must be an object.",
+        "NoId": "{at}: needs a string \"id\".",
+        "Quantity": "{where}: needs a \"quantity\" table such as \"0\": \"1\", \"1\": \"1d3\", \"2+\": \"1d4+1\".",
+        "Rule": "{where}: \"rule\" must be one of {rules}.",
+        "Options": "{where}: \"options\" must be entries with an \"id\" and an \"item\".",
+        "Family": "{where}: needs a \"family\" id.",
+        "Tiers": "{where}: needs a \"tiers\" object.",
+        "Tier": "{where}, level {level}: must be entries with a \"name\"."
+      }
+    },
+    "Sources": {
+      "Title": "Compendium Sources",
+      "Actors": "Actor compendiums",
+      "ActorsHint": "Searched top to bottom for summoned creatures by name.",
+      "Items": "Item compendiums",
+      "ItemsHint": "Searched top to bottom for templates and items added to summons.",
+      "Unavailable": "not loaded",
+      "Empty": "No compendiums of this type.",
+      "MoveUp": "Move up",
+      "MoveDown": "Move down",
+      "Cache": "Summon cache",
+      "CacheFolder": "Folder",
+      "CacheHint": "Compendium actors are imported here on first use.",
+      "Cached": "{count} cached actors",
+      "ClearCache": "Clear cache",
+      "ClearConfirm": {
+        "Title": "Clear Summon Cache",
+        "Body": "Delete {count} cached actors? They are imported again on next use."
+      },
+      "InUse": "{skipped} still used by tokens on a scene are kept.",
+      "Cleared": "Deleted {count} cached actors.",
+      "Save": "Save"
+    },
+    "Relay": {
+      "NoGM": "A GM must be connected to summon.",
+      "Timeout": "The GM did not respond in time.",
+      "Failed": "Summon failed: {error}"
+    },
+    "Sheet": {
+      "Title": "Summoning",
+      "UseItem": "Use item settings",
+      "ItemBadge": "Item",
+      "Mode": {
+        "Label": "Summons",
+        "None": "Nothing",
+        "Fixed": "Specific creatures",
+        "List": "From summon lists"
+      },
+      "Family": "Summon type",
+      "Level": "Summon level",
+      "Lists": "Lists",
+      "ListsHint": "None ticked uses every list of this type.",
+      "Creatures": "Creatures",
+      "ActorPlaceholder": "Actor name",
+      "ClearActor": "Unlink actor; look up by name instead",
+      "Quantity": "Quantity (formula)",
+      "Remove": "Remove",
+      "EntriesHint": "Drop an actor here, or type a name to look up in the compendium sources.",
+      "AddEntry": "Add creature",
+      "Pick": {
+        "Label": "Summon",
+        "All": "All of them",
+        "One": "One, chosen when used"
+      },
+      "UpTo": "Quantity is a maximum",
+      "SkipDialog": "Never ask",
+      "Summons": "Summoned creatures",
+      "Duration": {
+        "Label": "Duration",
+        "FromAction": "From the action"
+      },
+      "Range": "Range (ft.)",
+      "RangeFromUse": "From the use",
+      "Disposition": {
+        "Label": "Disposition",
+        "Summoner": "Same as summoner"
+      },
+      "Ownership": {
+        "Label": "Ownership",
+        "None": "Unchanged",
+        "Caster": "User who summoned",
+        "SummonerOwners": "Summoner's owners"
+      },
+      "Combat": {
+        "Label": "Combat",
+        "Default": "Module setting",
+        "Add": "Add after summoner",
+        "Skip": "Don't add"
+      },
+      "Items": "Items added",
+      "ItemPlaceholder": "Item name",
+      "ItemsHint": "Added to every summon. Drop an item or type a name.",
+      "AddItem": "Add item",
+      "Data": "Data passed to summons",
+      "CasterLevel": "Caster level",
+      "SaveDC": "Save DC",
+      "FromUse": "From the use",
+      "ExtraName": "name",
+      "ExtraValue": "Value or formula",
+      "DataHint": "Read on the summon as @summonInfo.name; cl, sl and saveDC are always set.",
+      "AddExtra": "Add value",
+      "Animation": "Animation",
+      "SummonAnimation": "Summon",
+      "DismissAnimation": "Dismiss",
+      "Default": "Default",
+      "AnimationHint": "Sequencer key or file path. Blank uses the default; none for no animation."
+    },
+    "Dialog": {
+      "Title": "Summon: {item}",
+      "Entry": "Creature",
+      "Summon": "Summon",
+      "List": "List",
+      "Tier": "Level",
+      "TierOption": "Level {level} ({quantity})",
+      "Creature": "Creature",
+      "Template": "Template",
+      "TemplateApplied": "Summoned with the {template} template.",
+      "Augments": "Augments"
+    },
+    "Augment": {
+      "Title": "Summon Augment",
+      "Enabled": "Affects summons",
+      "PresetNote": "Built-in rules for {name} apply:",
+      "Customize": "Customize",
+      "TurnOff": "Turn off",
+      "UsePreset": "Use built-in rules for {name}",
+      "Scope": {
+        "Label": "Applies to",
+        "Any": "Any summon",
+        "Families": "Summon types",
+        "Modes": "Summon modes",
+        "Items": "Specific items"
+      },
+      "ScopeItemsHint": "Drop or name the summoning spells and abilities this applies to.",
+      "When": {
+        "Label": "Applied",
+        "Always": "Always",
+        "OptionalOn": "Optional, ticked by default",
+        "OptionalOff": "Optional, unticked by default"
+      },
+      "Items": "Items added to summons",
+      "ItemsHint": "Put on every summon this applies to. Drop an item or type a name.",
+      "Summoning": "Summoning",
+      "QuantityBonus": "Extra creatures",
+      "OnlyIfMultiple": "Only when summoning more than one",
+      "Duration": "Duration",
+      "DurationHint": "Multipliers from several sources combine like critical multipliers: two ×2 make ×3.",
+      "Templates": "Templates",
+      "TemplatesHint": "Limits the template choice to these.",
+      "Summary": {
+        "Items": "Adds {items} to each summon.",
+        "Quantity": "+{bonus} creatures.",
+        "QuantityMultiple": "+{bonus} creatures when summoning more than one.",
+        "Multiplier": "Duration ×{mult}.",
+        "DurationBonus": "Duration +{bonus}.",
+        "Optional": "Optional: offered when summoning."
+      },
+      "Badge": {
+        "On": "On",
+        "Preset": "Preset"
+      }
+    },
+    "Place": {
+      "Label": "{name}: {n} of {total}",
+      "Invalid": "Out of range or line of sight.",
+      "NoSummoner": "The summoner isn't on this scene, so range isn't limited."
+    },
+    "Card": {
+      "PlaceRemaining": "Place remaining ({count})",
+      "DismissAll": "Dismiss all ({count})",
+      "Title": "Summons",
+      "QuantityFlavor": "Quantity",
+      "Templated": "{template} {name}"
+    },
+    "Hud": {
+      "Dismiss": "Dismiss summon"
+    },
+    "Buff": {
+      "Name": "Summoned: {item}",
+      "Description": "Created by a summoning. The summon is dismissed when this ends or is removed."
+    },
+    "Warn": {
+      "NoScene": "There is no active scene to summon into.",
+      "Cancelled": "Summon cancelled.",
+      "NoEntries": "Nothing is configured to summon.",
+      "NoneRolled": "The quantity rolled was 0; nothing to place.",
+      "ActorNotFound": "No actor named \"{name}\" in the compendium sources.",
+      "ActorMissing": "The actor for {name} no longer exists.",
+      "ItemMissing": "Item \"{name}\" not found in the compendium sources; skipped.",
+      "NoFamily": "This summon has no summon type set.",
+      "NoLists": "No summon lists exist for this summon type.",
+      "BadLevel": "Summon level {level} has no list to draw from."
+    }
+  }
+}

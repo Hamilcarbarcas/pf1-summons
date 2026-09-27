@@ -1,0 +1,24 @@
+<section class="{{css}}card">
+  {{#if header}}
+  <header class="{{css}}card-header">
+    <img src="{{itemImg}}" alt="">
+    <h3>{{itemName}}</h3>
+  </header>
+  {{/if}}
+  <h4 class="{{css}}card-title"><i class="fa-solid fa-hat-wizard" inert></i> {{localize "PF1SUM.Card.Title"}}</h4>
+  {{#each lines as |line|}}
+  <div class="{{@root.css}}card-line">
+    <div class="{{@root.css}}card-count">
+      <strong>{{line.count}}</strong> × {{line.name}}
+    </div>
+    {{#if line.rollHtml}}{{{line.rollHtml}}}{{/if}}
+  </div>
+  {{/each}}
+  {{#if duration}}
+  <p class="{{css}}card-meta"><i class="fa-solid fa-hourglass-half" inert></i> {{duration}}</p>
+  {{/if}}
+  {{#if augments}}
+  <p class="{{css}}card-meta"><i class="fa-solid fa-wand-sparkles" inert></i> {{augments}}</p>
+  {{/if}}
+  <div class="{{css}}card-buttons"></div>
+</section>

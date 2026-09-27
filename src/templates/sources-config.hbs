@@ -1,0 +1,44 @@
+<div class="{{css}}sources-lists">
+  {{#each lists as |list|}}
+  <fieldset class="{{@root.css}}sources-list" data-list="{{list.key}}">
+    <legend>{{localize list.label}}</legend>
+    <p class="hint">{{localize list.hint}}</p>
+    <ol class="{{@root.css}}sources-rows">
+      {{#each list.rows as |row|}}
+      <li class="{{@root.css}}sources-row{{#unless row.available}} {{@root.css}}unavailable{{/unless}}" data-id="{{row.id}}">
+        <input type="checkbox" data-list="{{list.key}}" data-source="{{row.id}}" {{checked row.enabled}}>
+        <span class="{{@root.css}}sources-label">
+          {{row.label}}
+          <span class="{{@root.css}}sources-package">{{#if row.available}}{{row.package}}{{else}}{{localize "PF1SUM.Sources.Unavailable"}}{{/if}}</span>
+        </span>
+        <button type="button" class="icon fa-solid fa-arrow-up" data-action="moveUp"
+          data-tooltip="PF1SUM.Sources.MoveUp" {{#if @first}}disabled{{/if}}></button>
+        <button type="button" class="icon fa-solid fa-arrow-down" data-action="moveDown"
+          data-tooltip="PF1SUM.Sources.MoveDown" {{#if @last}}disabled{{/if}}></button>
+      </li>
+      {{else}}
+      <li class="{{@root.css}}sources-empty">{{localize "PF1SUM.Sources.Empty"}}</li>
+      {{/each}}
+    </ol>
+  </fieldset>
+  {{/each}}
+
+  <fieldset class="{{css}}sources-cache">
+    <legend>{{localize "PF1SUM.Sources.Cache"}}</legend>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sources.CacheFolder"}}</label>
+      <div class="form-fields">
+        <input type="text" name="cacheFolder" value="{{cacheFolder}}">
+      </div>
+      <p class="hint">{{localize "PF1SUM.Sources.CacheHint"}}</p>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Sources.Cached" count=cached}}</label>
+      <div class="form-fields">
+        <button type="button" data-action="clearCache" {{#unless cached}}disabled{{/unless}}>
+          <i class="fa-solid fa-trash-can"></i> {{localize "PF1SUM.Sources.ClearCache"}}
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</div>

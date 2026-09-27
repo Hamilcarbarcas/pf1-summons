@@ -1,0 +1,276 @@
+/* Compendium Sources menu (§6.3). Every selector is scoped to the menu. */
+
+.pfsum-sources .pfsum-sources-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.pfsum-sources .pfsum-sources-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 14rem;
+  overflow-y: auto;
+}
+
+.pfsum-sources .pfsum-sources-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.125rem 0;
+}
+
+.pfsum-sources .pfsum-sources-row.pfsum-unavailable .pfsum-sources-label {
+  opacity: 0.55;
+  font-style: italic;
+}
+
+.pfsum-sources .pfsum-sources-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.pfsum-sources .pfsum-sources-package {
+  opacity: 0.65;
+  font-size: var(--font-size-12);
+  margin-left: 0.25rem;
+}
+
+.pfsum-sources .pfsum-sources-row button.icon {
+  flex: 0 0 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+}
+
+.pfsum-sources .pfsum-sources-empty {
+  opacity: 0.65;
+  font-style: italic;
+}
+
+/* Summoning section on item and action sheets (§4). */
+
+.pfsum-summon .pfsum-summon-subhead {
+  margin: 0.5rem 0 0.25rem;
+  font-size: var(--font-size-13, 13px);
+  border-bottom: 1px solid var(--color-border-light-2, #c9c7b8);
+}
+
+.pfsum-summon .pfsum-summon-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-height: 1.75rem;
+}
+
+.pfsum-summon .pfsum-summon-rows[data-pfsum-drop] {
+  border: 1px dashed var(--color-border-light-2, #c9c7b8);
+  border-radius: 3px;
+  padding: 2px;
+}
+
+.pfsum-summon .pfsum-summon-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1px 0;
+}
+
+.pfsum-summon .pfsum-summon-img {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+}
+
+.pfsum-summon .pfsum-summon-link,
+.pfsum-summon .pfsum-summon-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.pfsum-summon .pfsum-summon-link.pfsum-summon-missing {
+  color: var(--color-level-error, #c00);
+  text-decoration: line-through;
+}
+
+.pfsum-summon .pfsum-summon-key {
+  flex: 0 0 7em;
+}
+
+.pfsum-summon .pfsum-summon-qty {
+  flex: 0 0 5em;
+  text-align: center;
+}
+
+.pfsum-summon .pfsum-summon-control {
+  flex: 0 0 auto;
+  padding: 0 2px;
+}
+
+.pfsum-summon .pfsum-summon-checks {
+  gap: 1rem;
+}
+
+/* Summon card (§7.2). */
+
+.pfsum-card .pfsum-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.pfsum-card .pfsum-card-header img {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border: none;
+}
+
+.pfsum-card .pfsum-card-header h3 {
+  margin: 0;
+  border: none;
+}
+
+.pfsum-card .pfsum-card-meta {
+  margin: 0.25rem 0;
+  opacity: 0.75;
+}
+
+.pfsum-card .pfsum-card-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pfsum-card .pfsum-card-buttons:empty {
+  display: none;
+}
+
+/* Summon Lists editor (§11.1). */
+
+.pfsum-lists .pfsum-lists-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+}
+
+.pfsum-lists .pfsum-lists-editor {
+  flex: 1;
+  min-height: 18rem;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--font-size-12, 12px);
+  white-space: pre;
+  resize: vertical;
+}
+
+.pfsum-lists .pfsum-lists-errors {
+  margin: 0;
+  padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+  color: var(--color-level-error, #c00);
+  border: 1px solid var(--color-level-error, #c00);
+  border-radius: 3px;
+}
+
+.pfsum-lists .pfsum-lists-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pfsum-lists .pfsum-lists-shipped textarea {
+  width: 100%;
+  min-height: 14rem;
+}
+
+/* Summon Augment section (§9). Same row layout as the Summoning section. */
+
+.pfsum-augment .pfsum-augment-subhead {
+  margin: 0.5rem 0 0.25rem;
+  font-size: var(--font-size-13, 13px);
+  border-bottom: 1px solid var(--color-border-light-2, #c9c7b8);
+}
+
+.pfsum-augment .pfsum-augment-rows {
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  min-height: 1.75rem;
+  border: 1px dashed var(--color-border-light-2, #c9c7b8);
+  border-radius: 3px;
+}
+
+.pfsum-augment .pfsum-augment-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1px 0;
+}
+
+.pfsum-augment .pfsum-augment-img {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+}
+
+.pfsum-augment .pfsum-augment-link,
+.pfsum-augment .pfsum-augment-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.pfsum-augment .pfsum-augment-control {
+  flex: 0 0 auto;
+  padding: 0 2px;
+}
+
+.pfsum-augment .pfsum-augment-checks {
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pfsum-augment .pfsum-augment-num {
+  flex: 0 0 4em;
+  text-align: center;
+}
+
+.pfsum-augment .pfsum-augment-summary {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+}
+
+.pfsum-augment .pfsum-augment-buttons {
+  gap: 0.5rem;
+}
+
+/* Summon dialog (§7.1). */
+
+.pfsum-dialog .pfsum-dialog-augments {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Summon block injected into the use's chat card (§20.3). */
+
+.pfsum-card {
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--color-border-light-2, #c9c7b8);
+}
+
+.pfsum-card .pfsum-card-title {
+  margin: 0 0 0.25rem;
+  border: none;
+  font-size: var(--font-size-14, 14px);
+}
+
+.pfsum-card .pfsum-card-line {
+  margin-bottom: 0.25rem;
+}

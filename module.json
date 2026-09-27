@@ -1,0 +1,64 @@
+{
+  "id": "pf1-summons",
+  "title": "PF1 Summons",
+  "description": "<p>Summoning for Pathfinder 1e, configured from item and action sheets: fixed summons (spiritual weapon, a bonded mount, figurines) and list summons (summon monster, summon nature's ally) with tiers, quantity rolls, templates, feat augments, placement and lifecycle, with no macros needed.</p>",
+  "authors": [
+    {
+      "name": "Hamilcarbarcas",
+      "flags": {}
+    }
+  ],
+  "version": "0.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf1",
+        "type": "system",
+        "compatibility": {
+          "minimum": "11.10",
+          "verified": "11.11"
+        }
+      }
+    ],
+    "recommends": [
+      {
+        "id": "sequencer",
+        "type": "module",
+        "reason": "Placement crosshair and summon/dismiss animations. Without it, a built-in placement aid is used and nothing is animated."
+      },
+      {
+        "id": "pf1-new-script-hooks",
+        "type": "module",
+        "reason": "Lets the summon menu open before a spell or ability is used, so cancelling it cancels the use. Without it, the menu opens afterwards and cancelling only cancels the summon."
+      },
+      {
+        "id": "JB2A_DnD5e",
+        "type": "module",
+        "reason": "Animation files for Sequencer. The Patreon edition works the same."
+      }
+    ]
+  },
+  "esmodules": [
+    "src/pf1-summons.mjs"
+  ],
+  "styles": [
+    "src/common/sheet/kit.css",
+    "src/styles/pf1-summons.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "socket": true,
+  "url": "https://github.com/Hamilcarbarcas/pf1-summons",
+  "readme": "https://github.com/Hamilcarbarcas/pf1-summons/blob/main/README.md",
+  "manifest": "https://github.com/Hamilcarbarcas/pf1-summons/releases/latest/download/module.json",
+  "download": "https://github.com/Hamilcarbarcas/pf1-summons/releases/download/v0.0.0/module.zip"
+}
