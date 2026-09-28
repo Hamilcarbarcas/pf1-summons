@@ -4,6 +4,7 @@ import { registerSocket } from "./socket.mjs";
 import { registerConfigHooks } from "./config.mjs";
 import { registerSheetHooks } from "./sheet/summon-section.mjs";
 import { registerAugmentSheetHooks } from "./sheet/augment-section.mjs";
+import { registerItemHints } from "./sheet/item-hints.mjs";
 import { registerCastHooks } from "./cast/cast.mjs";
 import { registerLifecycleHooks } from "./lifecycle.mjs";
 import { registerRollData } from "./roll-data.mjs";
@@ -47,3 +48,5 @@ Hooks.once("init", () => {
   game.modules.get(MODULE_ID).api = api;
   game.pf1Summons = api;
 });
+
+Hooks.once("ready", () => registerItemHints());

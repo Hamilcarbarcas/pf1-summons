@@ -56,6 +56,7 @@
         "Rule": "{where}: \"rule\" must be one of {rules}.",
         "Options": "{where}: \"options\" must be entries with an \"id\" and an \"item\".",
         "Family": "{where}: needs a \"family\" id.",
+        "Extra": "{where}: \"extra\" must be true or false.",
         "Tiers": "{where}: needs a \"tiers\" object.",
         "Tier": "{where}, level {level}: must be entries with a \"name\"."
       }
@@ -167,7 +168,10 @@
       "Creature": "Creature",
       "Template": "Template",
       "TemplateApplied": "Summoned with the {template} template.",
-      "Augments": "Augments"
+      "Augments": "Augments",
+      "Quantity": "Quantity",
+      "QuantityInvalid": "\"{formula}\" isn't a valid quantity; using {fallback}.",
+      "Legend": "{marks} {list}"
     },
     "Augment": {
       "Title": "Summon Augment",
@@ -192,15 +196,21 @@
       },
       "Items": "Items added to summons",
       "ItemsHint": "Put on every summon this applies to. Drop an item or type a name.",
+      "ItemsOnly": "Only on summons from added lists",
+      "Lists": "Added summon lists",
+      "ListOption": "{list} ({family})",
+      "ListsHint": "Their creatures join the picker, marked *.",
+      "ListsNone": "No extra lists. Mark one \"extra\": true in Summon Lists.",
       "Summoning": "Summoning",
       "QuantityBonus": "Extra creatures",
       "OnlyIfMultiple": "Only when summoning more than one",
-      "Duration": "Duration",
+      "DurationMultiplier": "Duration multiplier",
+      "DurationBonus": "Added duration",
       "DurationHint": "Multipliers from several sources combine like critical multipliers: two ×2 make ×3.",
-      "Templates": "Templates",
-      "TemplatesHint": "Limits the template choice to these.",
       "Summary": {
         "Items": "Adds {items} to each summon.",
+        "ItemsAdded": "Adds {items} to summons from added lists.",
+        "Lists": "Adds summon lists: {lists}.",
         "Quantity": "+{bonus} creatures.",
         "QuantityMultiple": "+{bonus} creatures when summoning more than one.",
         "Multiplier": "Duration ×{mult}.",
@@ -211,6 +221,12 @@
         "On": "On",
         "Preset": "Preset"
       }
+    },
+    "Hint": {
+      "Summons": "Summons {what}",
+      "SummonsBare": "Summons creatures",
+      "Augment": "Summon Augment",
+      "AugmentPreset": "Summon Augment (built-in)"
     },
     "Place": {
       "Label": "{name}: {n} of {total}",

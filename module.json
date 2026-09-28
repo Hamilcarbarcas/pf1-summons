@@ -39,6 +39,11 @@
         "id": "JB2A_DnD5e",
         "type": "module",
         "reason": "Animation files for Sequencer. The Patreon edition works the same."
+      },
+      {
+        "id": "mkah-pf1-item-hints",
+        "type": "module",
+        "reason": "Shows an icon on items that summon or carry a Summon Augment."
       }
     ]
   },

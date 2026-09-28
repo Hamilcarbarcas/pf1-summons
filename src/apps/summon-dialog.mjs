@@ -1,14 +1,15 @@
 /**
  * The Summon dialog. DESIGN.md §7.1.
  *
- * Fixed mode asks only when an entry must be picked. List mode always asks: list, tier, creature,
- * and a template when the group's rule leaves a choice (§11.3). Resolves to `{ entries }` in the
- * shape `buildContext` takes, or null on cancel.
+ * Fixed mode asks only when an entry must be picked. List mode always asks: list, tier, quantity,
+ * creature, and a template when the group's rule leaves a choice (§11.3). Creatures from lists an
+ * augment adds are marked `*`, `**`… with a legend (§9.5). Resolves to `{ entries }` in the shape
+ * `buildContext` takes, or null on cancel.
  */
 
 import { CSS, MODULE_ID } from "../const.mjs";
-import { listsFor, quantityFormula, registry, templateChoice, tiersUpTo } from "../lists.mjs";
-import { defaultAugmentIds, templateNarrowing } from "../augments.mjs";
+import { addedLists, listsFor, quantityFormula, registry, templateChoice, tiersUpTo } from "../lists.mjs";
+import { defaultAugmentIds, itemsOnlyAdded } from "../augments.mjs";
 
 const esc = foundry.utils.escapeHTML;
 const t = (key, data) => (data ? game.i18n.format(key, data) : game.i18n.localize(key));
@@ -121,26 +122,29 @@ async function openListDialog(cfg, item, rollData, summoner, augments) {
   const content = [
     group(t("PF1SUM.Dialog.List"), `<select name="list">${listOptions}</select>`, lists.length > 1 ? "" : HIDE),
     group(t("PF1SUM.Dialog.Tier"), `<select name="tier"></select>`),
+    group(t("PF1SUM.Dialog.Quantity"), `<input type="text" name="quantity">`),
     group(t("PF1SUM.Dialog.Creature"), `<select name="creature"></select>`),
     group(t("PF1SUM.Dialog.Template"), `<select name="template"></select>`, `data-template-group ${HIDE}`),
     `<p class="notes" data-template-note ${HIDE}></p>`,
     augmentBlock(augments),
+    `<div class="notes ${CSS}dialog-legend" data-legend ${HIDE}></div>`,
   ].join("");
 
-  // State the callbacks share.
-  const pick = { list: null, tier: null, entry: null, choice: null };
+  const defaultQuantity = (tier) => (tier === null ? "" : quantityFormula(family, level - tier));
+
+  // State the callbacks share. `from` is the added list the creature came from, if any.
+  const pick = { list: null, tier: null, entry: null, from: null, choice: null, additions: [], pool: [] };
 
   const render = (_event, dialog) => {
     const form = dialog.element.querySelector("form") ?? dialog.element;
     const el = (name) => form.querySelector(`[name="${name}"]`);
     const templateGroupEl = form.querySelector("[data-template-group]");
     const noteEl = form.querySelector("[data-template-note]");
+    const legendEl = form.querySelector("[data-legend]");
 
     const fillTemplate = () => {
       const groupDef = pick.entry?.templates ? reg.templateGroups.get(pick.entry.templates) : null;
-      const applied = new Set(appliedIds(form, augments));
-      const only = templateNarrowing(augments.filter((a) => applied.has(a.id)));
-      pick.choice = groupDef ? templateChoice(groupDef, alignment, only[groupDef.id]) : null;
+      pick.choice = groupDef ? templateChoice(groupDef, alignment) : null;
       const opts = pick.choice?.options ?? [];
       const auto = pick.choice?.auto;
       templateGroupEl.style.display = opts.length > 1 ? "" : "none";
@@ -149,23 +153,61 @@ async function openListDialog(cfg, item, rollData, summoner, augments) {
       noteEl.textContent = auto ? t("PF1SUM.Dialog.TemplateApplied", { template: auto.label ?? auto.id }) : "";
     };
 
-    const fillCreatures = () => {
-      const entries = pick.list?.tiers?.[pick.tier] ?? [];
-      el("creature").innerHTML = entries.map((e, i) => `<option value="${i}">${esc(e.name)}</option>`).join("");
-      pick.entry = entries[0] ?? null;
+    const selectCreature = (index) => {
+      const chosen = pick.pool[index] ?? null;
+      pick.entry = chosen?.entry ?? null;
+      pick.from = chosen?.from ?? null;
       fillTemplate();
     };
 
+    // The tier's creatures from the chosen list plus every added list, A-Z. The current pick
+    // survives a rebuild when it's still on offer.
+    const fillCreatures = () => {
+      const prev = { entry: pick.entry, from: pick.from?.list.id };
+      pick.pool = [
+        ...(pick.list?.tiers?.[pick.tier] ?? []).map((entry) => ({ entry, from: null })),
+        ...pick.additions.flatMap((a) => (a.list.tiers?.[pick.tier] ?? []).map((entry) => ({ entry, from: a }))),
+      ].sort(
+        (a, b) => a.entry.name.localeCompare(b.entry.name) || (a.from?.marks.length ?? 0) - (b.from?.marks.length ?? 0)
+      );
+      el("creature").innerHTML = pick.pool
+        .map((p, i) => `<option value="${i}">${esc(p.entry.name + (p.from?.marks ?? ""))}</option>`)
+        .join("");
+      const index = Math.max(0, pick.pool.findIndex((p) => p.entry === prev.entry && p.from?.list.id === prev.from));
+      el("creature").value = String(index);
+      selectCreature(index);
+    };
+
+    // A new tier resets the quantity box; a rebuild that keeps the tier leaves the caster's value.
     const fillTiers = () => {
-      const tiers = tiersUpTo(pick.list, level);
+      const levels = new Set([pick.list, ...pick.additions.map((a) => a.list)].flatMap((l) => tiersUpTo(l, level)));
+      const tiers = [...levels].sort((a, b) => b - a);
       el("tier").innerHTML = tiers
         .map((n) => {
-          const quantity = quantityFormula(family, level - n);
+          const quantity = defaultQuantity(n);
           return `<option value="${n}">${esc(t("PF1SUM.Dialog.TierOption", { level: n, quantity }))}</option>`;
         })
         .join("");
-      pick.tier = tiers[0] ?? null;
+      if (!tiers.includes(pick.tier)) {
+        pick.tier = tiers[0] ?? null;
+        el("quantity").value = defaultQuantity(pick.tier);
+      }
+      el("tier").value = String(pick.tier);
       fillCreatures();
+    };
+
+    const fillLegend = () => {
+      legendEl.innerHTML = pick.additions
+        .map((a) => `<div>${esc(t("PF1SUM.Dialog.Legend", { marks: a.marks, list: a.list.label ?? a.list.id }))}</div>`)
+        .join("");
+      legendEl.style.display = pick.additions.length ? "" : "none";
+    };
+
+    const refreshAdditions = () => {
+      const applied = new Set(appliedIds(form, augments));
+      pick.additions = addedLists(reg, family.id, augments.filter((a) => applied.has(a.id)));
+      fillLegend();
+      fillTiers();
     };
 
     el("list").addEventListener("change", (ev) => {
@@ -174,41 +216,53 @@ async function openListDialog(cfg, item, rollData, summoner, augments) {
     });
     el("tier").addEventListener("change", (ev) => {
       pick.tier = Number(ev.currentTarget.value);
+      el("quantity").value = defaultQuantity(pick.tier);
       fillCreatures();
     });
-    el("creature").addEventListener("change", (ev) => {
-      pick.entry = pick.list?.tiers?.[pick.tier]?.[Number(ev.currentTarget.value)] ?? null;
-      fillTemplate();
-    });
-    // An augment can narrow the template options (§9.1).
-    for (const box of form.querySelectorAll('input[name="augment"]')) box.addEventListener("change", fillTemplate);
+    el("creature").addEventListener("change", (ev) => selectCreature(Number(ev.currentTarget.value)));
+    // An optional augment can add or remove lists.
+    for (const box of form.querySelectorAll('input[name="augment"]')) box.addEventListener("change", refreshAdditions);
 
     pick.list = lists[0];
-    fillTiers();
+    refreshAdditions();
   };
 
   const callback = (_event, button) => ({
     template: button.form.elements.template?.value || null,
+    quantity: button.form.elements.quantity?.value ?? "",
     augmentIds: appliedIds(button.form, augments),
   });
   const result = await wait(item, content, callback, render);
   if (!result || result === "cancel" || !pick.entry || pick.tier === null) return null;
 
+  const fallback = defaultQuantity(pick.tier);
+  let quantity = String(result.quantity).trim() || fallback;
+  if (!foundry.dice.Roll.validate(quantity)) {
+    ui.notifications.warn(t("PF1SUM.Dialog.QuantityInvalid", { formula: quantity, fallback }));
+    quantity = fallback;
+  }
+
   const opts = pick.choice?.options ?? [];
   const template = pick.choice?.auto ?? opts.find((o) => o.id === result.template) ?? null;
-  const items = [...(template ? [{ name: template.item, uuid: template.uuid ?? null }] : []), ...(pick.entry.items ?? [])];
+  // Items an augment reserves for its own lists' summons go on this entry only.
+  const addedItems = pick.from && itemsOnlyAdded(pick.from.augment) ? pick.from.augment.items : [];
+  const items = [
+    ...(template ? [{ name: template.item, uuid: template.uuid ?? null }] : []),
+    ...(pick.entry.items ?? []),
+    ...addedItems.filter((r) => r?.name || r?.uuid).map((r) => ({ name: r.name ?? "", uuid: r.uuid ?? null })),
+  ];
 
   return {
     entries: [
       {
         id: foundry.utils.randomID(8),
         actor: { name: pick.entry.name, uuid: pick.entry.uuid ?? null, aliases: pick.entry.aliases ?? [] },
-        quantity: quantityFormula(family, level - pick.tier),
+        quantity,
         items,
         label: template ? t("PF1SUM.Card.Templated", { name: pick.entry.name, template: template.label ?? template.id }) : null,
       },
     ],
-    listId: pick.list.id,
+    listId: pick.from?.list.id ?? pick.list.id,
     tier: pick.tier,
     template: template?.id ?? null,
     augmentIds: result.augmentIds,

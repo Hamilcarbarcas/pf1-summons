@@ -10,6 +10,8 @@
     {{/if}}
 
     {{#unless useItem}}
+    <div class="{{m}}-cols">
+    <div class="{{m}}-col">
     <div class="form-group">
       <label>{{localize "PF1SUM.Sheet.Mode.Label"}}</label>
       <div class="form-fields">
@@ -114,7 +116,11 @@
         <select data-field="combat">{{selectOptions combats selected=cfg.combat localize=true}}</select>
       </div>
     </div>
+    {{/if}}
+    </div>
 
+    {{#if cfg.mode}}
+    <div class="{{m}}-col">
     <h4 class="{{m}}-subhead">{{localize "PF1SUM.Sheet.Items"}}</h4>
     <ol class="{{m}}-rows" data-pfsum-drop="items">
       {{#each items as |r|}}
@@ -170,7 +176,9 @@
       <div class="form-fields"><input type="text" data-field="animation.dismiss" placeholder="{{localize 'PF1SUM.Sheet.Default'}}"></div>
     </div>
     <p class="notes">{{localize "PF1SUM.Sheet.AnimationHint"}}</p>
+    </div>
     {{/if}}
+    </div>
     {{/unless}}
   </div>
 </div>

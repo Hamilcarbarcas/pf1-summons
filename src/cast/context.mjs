@@ -4,6 +4,7 @@
 
 import { MODULE_ID } from "../const.mjs";
 import { augmentItems, durationMultiplier } from "../augments.mjs";
+import { scriptInfoOf } from "../script-info.mjs";
 
 const TIMED_UNITS = new Set(["turn", "round", "minute", "hour", "day"]);
 
@@ -63,7 +64,8 @@ async function resolveInfo(cfg, actionUse, rollData) {
     const name = String(row?.name ?? "").trim();
     if (name) info[name] = await evaluateLoose(row.value, rollData);
   }
-  return info;
+  // Script-set values win over configured ones. §10.1
+  return Object.assign(info, scriptInfoOf(actionUse));
 }
 
 /** A formula's total, 0 when blank or broken. */

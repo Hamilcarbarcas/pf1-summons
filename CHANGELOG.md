@@ -35,10 +35,17 @@ matching each release tag.
   shipped ones, with import and export.
 - With Astora's grouped initiative, summons join their summoner's group and act on its turn.
 - **Summon Augment** section on feats, class features and buffs: add items to summons, add
-  creatures, lengthen the duration, or limit the template choice, for any summon or chosen ones, always
-  or as a checkbox when summoning.
+  creatures, or lengthen the duration, for any summon or chosen ones, always or as a checkbox when
+  summoning.
 - Augment Summoning, Superior Summoning and Extend Spell work without setup.
 - Duration multipliers from several sources combine like critical multipliers.
+- `game.pf1Summons.setInfo(shared, name, value)` sets `@summonInfo` values from a script call, and
+  `getInfo(shared)` reads them back.
+- Summon Augments can add extra summon lists (for feats like Summon Good Monster). Their creatures
+  are marked `*`, `**`… in the summon menu with a key at the bottom, and the feat's items can be
+  limited to them.
+- The summon menu has a **Quantity** box, filled in from the chosen level and open to your own formula.
+- With Item Hints, items that summon or carry a Summon Augment show an icon on the character sheet.
 
 ---
 

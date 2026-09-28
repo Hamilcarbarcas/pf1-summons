@@ -8,6 +8,7 @@ import { registerResolver, resolveActor } from "./resolve.mjs";
 import { registry } from "./lists.mjs";
 import { effectiveConfig } from "./config.mjs";
 import { collectAugments } from "./augments.mjs";
+import { getInfo, setInfo } from "./script-info.mjs";
 
 const tokenDocOf = (t) => (t instanceof foundry.canvas.placeables.Token ? t.document : t);
 
@@ -50,4 +51,7 @@ export const api = {
     const cfg = effectiveConfig(item, actionId ?? item?.defaultAction?.id);
     return cfg ? collectAugments(actor, cfg, item) : [];
   },
+  /** `@summonInfo` values from script calls: `setInfo(shared, name, value)`. §10.1 */
+  setInfo,
+  getInfo,
 };

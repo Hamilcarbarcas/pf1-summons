@@ -13,11 +13,12 @@ import {
   WHEN,
   augmentBase,
   defaultAugment,
+  itemsOnlyAdded,
   normalizeAugment,
   ownAugment,
   presetFor,
 } from "../augments.mjs";
-import { registry } from "../lists.mjs";
+import { extraLists, registry } from "../lists.mjs";
 import { makeCollapsible } from "../common/sheet/collapse.mjs";
 import { bindFields } from "../common/sheet/field-bind.mjs";
 import { attachFormulaPreview } from "../common/sheet/formula-preview.mjs";
@@ -36,14 +37,17 @@ const FIELDS = {
   "quantity.onlyIfMultiple": { type: "checkbox" },
   "duration.multiplier": { type: "number" },
   "duration.bonus": { type: "text" },
-  "templates.options": { type: "set" },
+  "lists.itemsOnly": { type: "checkbox" },
 };
 
-/** One line per effect, for the preset face. */
-function summarize(aug) {
+/** One line per effect, for the preset face and the item hint. */
+export function summarize(aug, reg) {
   const lines = [];
+  const lists = aug.lists.add.map((id) => reg?.lists.get(id)?.label ?? id);
+  if (lists.length) lines.push(t("PF1SUM.Augment.Summary.Lists", { lists: lists.join(", ") }));
   const items = aug.items.map((r) => r.name).filter(Boolean);
-  if (items.length) lines.push(t("PF1SUM.Augment.Summary.Items", { items: items.join(", ") }));
+  const itemsKey = itemsOnlyAdded(aug) ? "ItemsAdded" : "Items";
+  if (items.length) lines.push(t(`PF1SUM.Augment.Summary.${itemsKey}`, { items: items.join(", ") }));
   if (aug.quantity.bonus) {
     const key = aug.quantity.onlyIfMultiple ? "QuantityMultiple" : "Quantity";
     lines.push(t(`PF1SUM.Augment.Summary.${key}`, { bonus: aug.quantity.bonus }));
@@ -74,7 +78,6 @@ async function inject(app, html) {
 
   const isPreset = !own && !!preset;
   const aug = own ?? (preset ? normalizeAugment(preset.augment) : defaultAugment());
-  const groupDef = reg.templateGroups.get(aug.templates.group);
 
   const html_ = await foundry.applications.handlebars.renderTemplate(`${TEMPLATES}/augment-section.hbs`, {
     m: M,
@@ -82,13 +85,18 @@ async function inject(app, html) {
     isPreset,
     hasPreset: !!preset,
     presetName: preset ? item.name : "",
-    summary: isPreset ? summarize(aug) : [],
+    summary: isPreset ? summarize(aug, reg) : [],
     scopes: SCOPES,
     whens: WHEN,
     modes: { fixed: MODES.fixed, list: MODES.list },
     families: Object.fromEntries([...reg.families.values()].map((f) => [f.id, f.label ?? f.id])),
-    groups: Object.fromEntries([...reg.templateGroups.values()].map((g) => [g.id, g.label ?? g.id])),
-    groupOptions: (groupDef?.options ?? []).map((o) => ({ id: o.id, label: o.label ?? o.id })),
+    extraLists: extraLists(reg).map((l) => ({
+      id: l.id,
+      label: t("PF1SUM.Augment.ListOption", {
+        list: l.label ?? l.id,
+        family: reg.families.get(l.family)?.label ?? l.family,
+      }),
+    })),
     scopeFamilies: aug.scope.kind === "families",
     scopeModes: aug.scope.kind === "modes",
     scopeItems: aug.scope.kind === "items",
@@ -98,7 +106,8 @@ async function inject(app, html) {
   const holder = document.createElement("div");
   holder.innerHTML = html_;
   const section = holder.firstElementChild;
-  tab.append(section);
+  // Inside the body with the other modules' sections, above Little Helper / Item Hints.
+  (tab.querySelector(".flexcol") ?? tab).append(section);
 
   const base = augmentBase();
   const rerender = () => app.render();
@@ -129,8 +138,8 @@ async function inject(app, html) {
         ...FIELDS,
         enabled: { type: "checkbox", onChange: rerender },
         "scope.kind": { type: "text", onChange: rerender },
-        // Another group's options mean nothing here, so they reset.
-        "templates.group": { type: "text", onChange: async () => (await save("templates.options", []), rerender()) },
+        // The items-only checkbox shows once a list is added.
+        "lists.add": { type: "set", onChange: rerender },
       },
     });
     bindRows(section, { cfg, save, rerender });
@@ -143,6 +152,8 @@ async function inject(app, html) {
     marker: M,
     configured: !!own?.enabled,
     badge: badgeFor(own, preset),
+    // Directly after Summoning, which alphabetical order would put it above.
+    sortKey: `${t("PF1SUM.Sheet.Title")} ${t("PF1SUM.Augment.Title")}`,
   });
 }
 

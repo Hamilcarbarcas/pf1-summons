@@ -61,6 +61,9 @@ export async function registry() {
   return merged;
 }
 
+/** The registry if already loaded, else null. For synchronous callers. */
+export const peekRegistry = () => merged ?? null;
+
 function onSetting(setting) {
   if (setting.key === `${MODULE_ID}.${KEYS.listOverlay}`) merged = null;
 }
@@ -75,9 +78,36 @@ export function registerListHooks() {
 /*  Rules                                       */
 /* -------------------------------------------- */
 
-/** Lists of a family, narrowed to `allowed` ids when any are given. */
+/**
+ * A family's normal lists, narrowed to `allowed` ids when any are given. `extra` lists are left out:
+ * only an augment adds them (§9.5).
+ */
 export function listsFor(reg, familyId, allowed = []) {
-  return [...reg.lists.values()].filter((l) => l.family === familyId && (!allowed?.length || allowed.includes(l.id)));
+  return [...reg.lists.values()].filter(
+    (l) => l.family === familyId && !l.extra && (!allowed?.length || allowed.includes(l.id))
+  );
+}
+
+/** Every `extra` list, for the augment sheet. */
+export const extraLists = (reg) => [...reg.lists.values()].filter((l) => l.extra);
+
+/**
+ * Lists the applied augments add to a cast of `familyId`, each with its footnote mark (`*`, `**`…)
+ * in augment order. A list of another family, a normal list, or one already added is skipped.
+ * @returns {{list: object, marks: string, augment: object}[]}
+ */
+export function addedLists(reg, familyId, applied) {
+  const out = [];
+  const seen = new Set();
+  for (const { augment } of applied) {
+    for (const id of augment.lists?.add ?? []) {
+      const list = reg.lists.get(id);
+      if (!list?.extra || list.family !== familyId || seen.has(id)) continue;
+      seen.add(id);
+      out.push({ list, marks: "*".repeat(out.length + 1), augment });
+    }
+  }
+  return out;
 }
 
 /** Tier levels at or below `level`, highest first. */
@@ -117,12 +147,10 @@ export function goodEvilAxis(alignment) {
  * Template options the caster may pick from, and the one applied without asking (if any). §11.3
  * @param {object} group      Template group.
  * @param {string} alignment  Summoner's alignment code.
- * @param {string[]} [only]   Option ids an augment narrows the group to (§9.1).
  * @returns {{options: object[], auto: object|null}}
  */
-export function templateChoice(group, alignment, only = null) {
+export function templateChoice(group, alignment) {
   let options = [...(group?.options ?? [])];
-  if (only?.length) options = options.filter((o) => only.includes(o.id));
   if (!options.length) return { options: [], auto: null };
 
   if (group.rule === "fixed") return { options: [options[0]], auto: options[0] };
@@ -173,6 +201,7 @@ export function validateOverlay(overlay) {
       }
       if (section === "lists") {
         if (typeof row.family !== "string") err("Family", { where });
+        if (row.extra !== undefined && typeof row.extra !== "boolean") err("Extra", { where });
         if (!row.tiers || typeof row.tiers !== "object") err("Tiers", { where });
         else {
           for (const [level, entries] of Object.entries(row.tiers)) {

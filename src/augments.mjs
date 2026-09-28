@@ -2,8 +2,8 @@
  * Summon augments: config on a source item (feat, class feature, buff) that adjusts summons.
  * DESIGN.md §9.
  *
- * Only items reach the summon itself; quantity, duration and template eligibility adjust the
- * summoning. Range is deliberately absent: it is read from the use (§7.2).
+ * Only items reach the summon itself; quantity, duration and added lists adjust the summoning.
+ * Range is deliberately absent: it is read from the use (§7.2).
  */
 
 import { MODULE_ID } from "./const.mjs";
@@ -33,7 +33,7 @@ export function defaultAugment() {
     items: [],
     quantity: { bonus: "", onlyIfMultiple: false },
     duration: { multiplier: 1, bonus: "" },
-    templates: { group: "", options: [] },
+    lists: { add: [], itemsOnly: false },
   };
 }
 
@@ -41,7 +41,7 @@ export function normalizeAugment(raw) {
   const aug = foundry.utils.mergeObject(defaultAugment(), raw ?? {}, { inplace: false });
   for (const key of ["families", "modes", "items"]) if (!Array.isArray(aug.scope[key])) aug.scope[key] = [];
   if (!Array.isArray(aug.items)) aug.items = [];
-  if (!Array.isArray(aug.templates.options)) aug.templates.options = [];
+  if (!Array.isArray(aug.lists.add)) aug.lists.add = [];
   const mult = Number(aug.duration.multiplier);
   aug.duration.multiplier = Number.isFinite(mult) && mult > 0 ? mult : 1;
   return aug;
@@ -119,25 +119,22 @@ export function collectAugments(actor, cfg, summoningItem) {
 /** Ids applied without asking: every mandatory augment and optional ones that default on. */
 export const defaultAugmentIds = (augments) => augments.filter((a) => a.checked).map((a) => a.id);
 
-/** Template option ids an applied set narrows each group to; last in sort order wins. */
-export function templateNarrowing(applied) {
-  const only = {};
-  for (const { augment } of applied) {
-    const { group, options } = augment.templates;
-    if (group && options.length) only[group] = options;
-  }
-  return only;
-}
-
 /** Duration multiplier, crit-style: 1 + Σ(m − 1). Three ×2 give ×4. */
 export const durationMultiplier = (applied) =>
   1 + applied.reduce((sum, { augment }) => sum + (augment.duration.multiplier - 1), 0);
 
-/** Item refs from applied augments, de-duplicated by name. */
+/** Whether an augment's items go only on summons from the lists it adds. */
+export const itemsOnlyAdded = (augment) => !!augment.lists?.itemsOnly && !!augment.lists?.add?.length;
+
+/**
+ * Item refs from applied augments, de-duplicated by name. Augments whose items go only on their
+ * added lists' summons are skipped; the dialog puts those on the entry.
+ */
 export function augmentItems(applied, existing = []) {
   const seen = new Set(existing.map((r) => nameKey(r.name)).filter(Boolean));
   const out = [];
   for (const { augment } of applied) {
+    if (itemsOnlyAdded(augment)) continue;
     for (const ref of augment.items) {
       const key = nameKey(ref?.name);
       if (!ref || (!key && !ref.uuid) || (key && seen.has(key))) continue;

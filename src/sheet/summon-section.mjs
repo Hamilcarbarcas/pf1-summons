@@ -224,7 +224,7 @@ async function injectItem(app, html) {
   // Above the Summon Augment section, whichever finishes rendering first.
   const augment = tab.querySelector(`.${CSS}augment`);
   if (augment) augment.before(section);
-  else tab.append(section);
+  else (tab.querySelector(".flexcol") ?? tab).append(section);
   activate({ app, section, item, base: itemBase(), cfg, rollData: item.getRollData() });
   makeCollapsible(app, section, { key: "summon", marker: M, configured: !!cfg.mode, badge: badgeFor(cfg, false, reg) });
 }

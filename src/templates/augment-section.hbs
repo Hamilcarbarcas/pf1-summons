@@ -42,6 +42,8 @@
     {{/if}}
 
     {{#if aug.enabled}}
+    <div class="{{m}}-cols">
+    <div class="{{m}}-col">
     <div class="form-group">
       <label>{{localize "PF1SUM.Augment.Scope.Label"}}</label>
       <div class="form-fields"><select data-field="scope.kind">{{selectOptions scopes selected=aug.scope.kind localize=true}}</select></div>
@@ -73,7 +75,14 @@
     <h4 class="{{m}}-subhead">{{localize "PF1SUM.Augment.Items"}}</h4>
     {{> refList m=m path="items" rows=itemRows}}
     <p class="notes">{{localize "PF1SUM.Augment.ItemsHint"}}</p>
+    {{#if aug.lists.add.length}}
+    <div class="form-group">
+      <label class="checkbox"><input type="checkbox" data-field="lists.itemsOnly"> {{localize "PF1SUM.Augment.ItemsOnly"}}</label>
+    </div>
+    {{/if}}
+    </div>
 
+    <div class="{{m}}-col">
     <h4 class="{{m}}-subhead">{{localize "PF1SUM.Augment.Summoning"}}</h4>
     <div class="form-group">
       <label>{{localize "PF1SUM.Augment.QuantityBonus"}}</label>
@@ -83,25 +92,32 @@
       </div>
     </div>
     <div class="form-group">
-      <label>{{localize "PF1SUM.Augment.Duration"}}</label>
+      <label>{{localize "PF1SUM.Augment.DurationMultiplier"}}</label>
       <div class="form-fields">
-        <span>×</span><input type="number" class="{{m}}-num" data-field="duration.multiplier" min="0" step="0.5">
-        <span>+</span><input type="text" data-field="duration.bonus" data-formula placeholder="0">
+        <input type="number" data-field="duration.multiplier" min="0" step="0.5" placeholder="1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>{{localize "PF1SUM.Augment.DurationBonus"}}</label>
+      <div class="form-fields">
+        <input type="text" data-field="duration.bonus" data-formula placeholder="0">
       </div>
     </div>
     <p class="notes">{{localize "PF1SUM.Augment.DurationHint"}}</p>
-    <div class="form-group">
-      <label>{{localize "PF1SUM.Augment.Templates"}}</label>
-      <div class="form-fields"><select data-field="templates.group">{{selectOptions groups selected=aug.templates.group blank=""}}</select></div>
-    </div>
-    {{#if groupOptions.length}}
+
+    <h4 class="{{m}}-subhead">{{localize "PF1SUM.Augment.Lists"}}</h4>
+    {{#if extraLists.length}}
     <div class="form-group">
       <div class="form-fields {{m}}-checks">
-        {{#each groupOptions as |o|}}<label class="checkbox"><input type="checkbox" data-field="templates.options" value="{{o.id}}"> {{o.label}}</label>{{/each}}
+        {{#each extraLists as |l|}}<label class="checkbox"><input type="checkbox" data-field="lists.add" value="{{l.id}}"> {{l.label}}</label>{{/each}}
       </div>
     </div>
-    <p class="notes">{{localize "PF1SUM.Augment.TemplatesHint"}}</p>
+    <p class="notes">{{localize "PF1SUM.Augment.ListsHint"}}</p>
+    {{else}}
+    <p class="notes">{{localize "PF1SUM.Augment.ListsNone"}}</p>
     {{/if}}
+    </div>
+    </div>
     {{/if}}
     {{/if}}
   </div>
