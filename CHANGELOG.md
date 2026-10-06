@@ -50,3 +50,8 @@ matching each release tag.
 ---
 
 Earlier releases: see [GitHub Releases](https://github.com/Hamilcarbarcas/pf1-summons/releases).
+
+### Fixed
+- **Adding or changing an entry in a sheet section no longer jumps the sheet back to the top of
+  the tab.** Sections from the shared sheet kit now restore the scroll position once they have
+  drawn.
