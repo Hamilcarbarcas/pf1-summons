@@ -51,6 +51,8 @@ summoned. **Clear cache** in the same menu removes them so they're copied fresh.
 ### Configuring a summon
 
 On the item's **Advanced** tab, open **Summoning** and set **Summons** to **Specific creatures**.
+On an item that doesn't summon yet, Summoning and Summon Augment are hidden: click **Show N more sections**
+at the foot of the tab to reveal them.
 
 - **Creatures**: drop actors onto the list, or type names. Each has a quantity formula (`1`, `1d4`,
   `@cl`). With several, choose whether all are summoned or one is picked when used.

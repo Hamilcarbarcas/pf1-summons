@@ -226,7 +226,13 @@ async function injectItem(app, html) {
   if (augment) augment.before(section);
   else (tab.querySelector(".flexcol") ?? tab).append(section);
   activate({ app, section, item, base: itemBase(), cfg, rollData: item.getRollData() });
-  makeCollapsible(app, section, { key: "summon", marker: M, configured: !!cfg.mode, badge: badgeFor(cfg, false, reg) });
+  makeCollapsible(app, section, {
+    key: "summon",
+    marker: M,
+    configured: !!cfg.mode,
+    badge: badgeFor(cfg, false, reg),
+    niche: true,
+  });
 }
 
 /** renderItemActionSheet */
@@ -259,7 +265,15 @@ async function injectAction(app, html) {
     activate({ app, section, item, base: actionBase(action.id), cfg, rollData: action.getRollData() });
   }
   const configured = !useItem && !!cfg.mode;
-  makeCollapsible(app, section, { key: "summon", marker: M, configured, badge: badgeFor(cfg, useItem, reg) });
+  makeCollapsible(app, section, {
+    key: "summon",
+    marker: M,
+    configured,
+    badge: badgeFor(cfg, useItem, reg),
+    niche: true,
+    // Following the item's summon still summons.
+    inUse: useItem ? !!readItemConfig(item).mode : !!cfg.mode,
+  });
 }
 
 export function registerSheetHooks() {

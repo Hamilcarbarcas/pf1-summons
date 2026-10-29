@@ -55,3 +55,6 @@ Earlier releases: see [GitHub Releases](https://github.com/Hamilcarbarcas/pf1-su
 - **Adding or changing an entry in a sheet section no longer jumps the sheet back to the top of
   the tab.** Sections from the shared sheet kit now restore the scroll position once they have
   drawn.
+
+### Changed
+- **Summoning** and **Summon Augment** are hidden on items that don't use them. A **Show N more sections** line at the foot of the tab reveals them (shared sheet kit 1.7.0).

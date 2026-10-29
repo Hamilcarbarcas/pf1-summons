@@ -152,6 +152,9 @@ async function inject(app, html) {
     marker: M,
     configured: !!own?.enabled,
     badge: badgeFor(own, preset),
+    niche: true,
+    // A preset feat augments with no config of its own.
+    inUse: own ? !!own.enabled : isPreset,
     // Directly after Summoning, which alphabetical order would put it above.
     sortKey: `${t("PF1SUM.Sheet.Title")} ${t("PF1SUM.Augment.Title")}`,
   });
