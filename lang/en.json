@@ -138,6 +138,7 @@
         "Label": "Combat",
         "Default": "Module setting",
         "Add": "Add after summoner",
+        "Group": "Add grouped with summoner",
         "Skip": "Don't add"
       },
       "Items": "Items added",

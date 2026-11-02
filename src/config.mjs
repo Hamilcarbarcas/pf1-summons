@@ -32,6 +32,7 @@ export const OWNERSHIP_MODES = {
 export const COMBAT_MODES = {
   default: "PF1SUM.Sheet.Combat.Default",
   add: "PF1SUM.Sheet.Combat.Add",
+  group: "PF1SUM.Sheet.Combat.Group",
   skip: "PF1SUM.Sheet.Combat.Skip",
 };
 

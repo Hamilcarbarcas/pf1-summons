@@ -33,7 +33,8 @@ matching each release tag.
 - Summon Monster and Summon Nature's Ally lists for levels 1–9.
 - **Summon Lists** settings menu: edit lists, summon types and templates as JSON on top of the
   shipped ones, with import and export.
-- With Astora's grouped initiative, summons join their summoner's group and act on its turn.
+- With Astora's grouped initiative, summons join their summoner's group and act on its turn. A
+  summon's **Combat** choice can add them after the summoner or grouped with them.
 - **Summon Augment** section on feats, class features and buffs: add items to summons, add
   creatures, or lengthen the duration, for any summon or chosen ones, always or as a checkbox when
   summoning.
@@ -57,4 +58,4 @@ Earlier releases: see [GitHub Releases](https://github.com/Hamilcarbarcas/pf1-su
   drawn.
 
 ### Changed
-- **Summoning** and **Summon Augment** are hidden on items that don't use them. A **Show N more sections** line at the foot of the tab reveals them (shared sheet kit 1.7.0).
+- **Summoning** and **Summon Augment** are hidden on items that don't use them. Tick them under **Optional Sections** on the same tab to show them (shared sheet kit 1.8.0).

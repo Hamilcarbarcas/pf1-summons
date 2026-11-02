@@ -51,15 +51,16 @@ summoned. **Clear cache** in the same menu removes them so they're copied fresh.
 ### Configuring a summon
 
 On the item's **Advanced** tab, open **Summoning** and set **Summons** to **Specific creatures**.
-On an item that doesn't summon yet, Summoning and Summon Augment are hidden: click **Show N more sections**
-at the foot of the tab to reveal them.
+On an item that doesn't summon yet, Summoning and Summon Augment are hidden: tick them under **Optional Sections** on the same tab.
 
 - **Creatures**: drop actors onto the list, or type names. Each has a quantity formula (`1`, `1d4`,
   `@cl`). With several, choose whether all are summoned or one is picked when used.
 - **Quantity is a maximum**: stopping early doesn't leave the rest waiting to be placed.
 - **Never ask**: never show the summon dialog.
 - **Duration** and **Range**: blank uses the spell's own.
-- **Disposition**, **Ownership**, **Combat**: how the summoned tokens are set up.
+- **Disposition**, **Ownership**, **Combat**: how the summoned tokens are set up. **Combat** adds
+  summons after their summoner, or grouped with the summoner so they act on its turn (needs Astora's
+  grouped initiative; otherwise they're added after). **Module setting** uses the two settings below.
 - **Items added**: items put on every summon. Drop an item or type a name.
 - **Data passed to summons**: see [below](#passing-data-to-summons).
 - **Animation**: override the default summon and dismiss effects.

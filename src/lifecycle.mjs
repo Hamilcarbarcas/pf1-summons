@@ -109,8 +109,8 @@ const groupedInitiative = () => game.astoraMod?.groupInitiative ?? null;
 
 /**
  * Add a summon to the summoner's combat. Inserted right after the summoner (its initiative less
- * 0.001, below PF1's /100 tiebreaker), then joined to the summoner's group when grouped initiative
- * is available: to the group's leader when the summoner is itself a member.
+ * 0.001, below PF1's /100 tiebreaker). With `plan.combat` "group" and grouped initiative available,
+ * then joined to the summoner's group: to the group's leader when the summoner is itself a member.
  */
 export async function addToCombat(plan, token) {
   if (!plan.combat) return;
@@ -138,7 +138,7 @@ export async function addToCombat(plan, token) {
     })) ?? [];
 
   const gi = groupedInitiative();
-  if (!uuid || !gi || !flag(KEYS.groupWithSummoner, true)) return;
+  if (!uuid || !gi || plan.combat !== "group") return;
   const combatant = await fromUuid(uuid);
   const leader = gi.isMember(summoner) ? gi.leaderOf(summoner) : summoner;
   if (combatant && leader) {

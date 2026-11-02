@@ -44,6 +44,16 @@ function ownershipFor(mode, ctx) {
   return null;
 }
 
+/** "after", "group", or null (not added). "default" reads the two settings. §13.3 */
+function combatFor(mode) {
+  if (mode === "default") {
+    if (!flag(KEYS.addToCombat, true)) return null;
+    return flag(KEYS.groupWithSummoner, true) ? "group" : "after";
+  }
+  if (mode === "add") return "after";
+  return mode === "group" ? "group" : null;
+}
+
 /** Everything placement and spawning need, serializable onto the card. */
 function buildPlan(ctx, queue) {
   const { cfg } = ctx;
@@ -58,7 +68,7 @@ function buildPlan(ctx, queue) {
     elevation: ctx.summonerToken?.elevation ?? 0,
     disposition: dispositionFor(cfg.disposition, ctx),
     ownership: ownershipFor(cfg.ownership?.mode, ctx),
-    combat: cfg.combat === "add" || (cfg.combat === "default" && flag(KEYS.addToCombat, true)),
+    combat: combatFor(cfg.combat),
     duration: ctx.duration,
     range: ctx.range,
     info: ctx.info,
