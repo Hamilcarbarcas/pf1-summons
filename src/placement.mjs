@@ -22,18 +22,45 @@ function rangeLimit(range, fp) {
   return range + (Math.min(fp.w, fp.h) * canvas.grid.distance) / 2;
 }
 
+/** The footprint's center, which range, sight and landing height are all measured to. */
+const centerOf = (topLeft, fp) => ({ x: topLeft.x + fp.px / 2, y: topLeft.y + fp.py / 2 });
+
+/** astora-mod's answer for a spot, `{ elevation, clear }`, or null when it has none. §7.3 */
+const landingAt = (token, point, actor) => game.astoraMod?.sightOverWalls?.landing?.(token, point, { actor }) ?? null;
+
+/** The placement label, with the height the summon would land at once there is one. §7.3 */
+function labelAt(label, landing) {
+  if (!landing) return label;
+  return game.i18n.format("PF1SUM.Place.LabelElevation", { label, elevation: landing.elevation, units: canvas.grid.units });
+}
+
 /**
- * Range and line-of-sight test for a footprint top-left, shared by both paths. Always valid when
- * the summoner isn't on the scene (§7.3).
+ * Range and line-of-sight test for a footprint top-left, shared by both paths, with the landing it
+ * found there. Always valid when the summoner isn't on the scene (§7.3).
  */
-function makeValidator(summonerToken, range, fp) {
-  const origin = summonerToken?.object?.center ?? null;
+function makeValidator(actor, summonerToken, range, fp) {
+  const token = summonerToken?.object ?? null;
+  const origin = token?.center ?? null;
   const limit = origin ? rangeLimit(range, fp) : null;
+  const isValid = (center, landing) => {
+    // Feet to feet. Without a landing height the summon appears at the summoner's elevation, so flat is exact.
+    const path = landing
+      ? [{ x: origin.x, y: origin.y, elevation: token.document.elevation }, { ...center, elevation: landing.elevation }]
+      : [origin, center];
+    if (limit !== null && canvas.grid.measurePath(path).distance > limit) return false;
+    if (landing) return landing.clear;
+    // Wall-height filters walls by the source's token; without one, every wall blocks at any height.
+    return !CONFIG.Canvas.polygonBackends.sight.testCollision(origin, center, {
+      type: "sight",
+      mode: "any",
+      source: { object: token, elevation: token.document.elevation },
+    });
+  };
   return (topLeft) => {
-    if (!origin) return true;
-    const center = { x: topLeft.x + fp.px / 2, y: topLeft.y + fp.py / 2 };
-    if (limit !== null && canvas.grid.measurePath([origin, center]).distance > limit) return false;
-    return !CONFIG.Canvas.polygonBackends.sight.testCollision(origin, center, { type: "sight", mode: "any" });
+    if (!origin) return { valid: true, landing: null };
+    const center = centerOf(topLeft, fp);
+    const landing = landingAt(token, center, actor);
+    return { valid: isValid(center, landing), landing };
   };
 }
 
@@ -55,10 +82,13 @@ function rangeRing(summonerToken, range) {
  * @param {TokenDocument|null} args.summonerToken
  * @param {number|null} args.range
  * @param {string} args.label
- * @returns {Promise<{x: number, y: number}|null>}
+ * @returns {Promise<{x: number, y: number, elevation?: number}|null>}
  */
-export function placeOne(args) {
-  return hasSequencer() ? placeWithSequencer(args) : placeWithFallback(args);
+export async function placeOne(args) {
+  const pos = await (hasSequencer() ? placeWithSequencer(args) : placeWithFallback(args));
+  if (!pos) return null;
+  const landing = landingAt(args.summonerToken?.object, centerOf(pos, footprint(args.actor)), args.actor);
+  return landing ? { ...pos, elevation: landing.elevation } : pos;
 }
 
 /* -------------------------------------------- */
@@ -77,16 +107,19 @@ async function placeWithSequencer({ actor, summonerToken, range, label }) {
   const fp = footprint(actor);
   const dx = fp.w * canvas.grid.distance;
   const dy = fp.h * canvas.grid.distance;
-  const isValid = makeValidator(summonerToken, range, fp);
+  const check = makeValidator(actor, summonerToken, range, fp);
   const ring = rangeRing(summonerToken, range);
   let valid = true;
 
   const recolor = (crosshair) => {
     const doc = crosshair?.document;
     if (!doc) return;
-    valid = isValid({ x: doc.x, y: doc.y });
+    const spot = check({ x: doc.x, y: doc.y });
+    valid = spot.valid;
     const color = valid ? VALID_COLOR : INVALID_COLOR;
     doc.updateSource({ fillColor: color, borderColor: color });
+    // Sequencer reads the label on each refresh.
+    crosshair.crosshair.label.text = labelAt(label, spot.landing);
   };
   const { CALLBACKS } = Sequencer.Crosshair;
 
@@ -105,7 +138,10 @@ async function placeWithSequencer({ actor, summonerToken, range, label }) {
         location: { offset: { x: -fp.px / 2, y: -fp.py / 2 } },
       },
       {
-        [CALLBACKS.SHOW]: recolor,
+        [CALLBACKS.SHOW]: (crosshair) => {
+          recolor(crosshair);
+          crosshair?.refresh();
+        },
         [CALLBACKS.MOVE]: recolor,
         [CALLBACKS.PLACED]: () => {
           if (valid) return true;
@@ -132,7 +168,7 @@ function placeWithFallback({ actor, summonerToken, range, label }) {
   return new Promise((resolve) => {
     const fp = footprint(actor);
     const size = canvas.grid.size;
-    const isValid = makeValidator(summonerToken, range, fp);
+    const check = makeValidator(actor, summonerToken, range, fp);
     const grid = canvas.interface.grid;
     const ring = rangeRing(summonerToken, range);
 
@@ -164,10 +200,11 @@ function placeWithFallback({ actor, summonerToken, range, label }) {
         { x: p.x - fp.px / 2, y: p.y - fp.py / 2 },
         { mode: CONST.GRID_SNAPPING_MODES.VERTEX }
       );
-      const valid = isValid(topLeft);
+      const { valid, landing } = check(topLeft);
       current = valid ? topLeft : null;
 
       preview.position.set(topLeft.x, topLeft.y);
+      text.text = labelAt(label, landing);
       sprite.tint = valid ? 0xffffff : 0xff8080;
       grid.clearHighlightLayer(HIGHLIGHT);
       const color = valid ? VALID : INVALID;

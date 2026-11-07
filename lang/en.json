@@ -231,6 +231,7 @@
     },
     "Place": {
       "Label": "{name}: {n} of {total}",
+      "LabelElevation": "{label}\nElevation {elevation} {units}",
       "Invalid": "Out of range or line of sight.",
       "NoSummoner": "The summoner isn't on this scene, so range isn't limited."
     },

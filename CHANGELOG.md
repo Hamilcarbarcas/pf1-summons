@@ -56,6 +56,13 @@ Earlier releases: see [GitHub Releases](https://github.com/Hamilcarbarcas/pf1-su
 - **Adding or changing an entry in a sheet section no longer jumps the sheet back to the top of
   the tab.** Sections from the shared sheet kit now restore the scroll position once they have
   drawn.
+- **Placement's line-of-sight check respects Wall Height.** A summoner standing above a wall can
+  place a summon past it, instead of being refused as out of sight.
+- **Summons land on the surface you point at.** With Astora's Sight Over Walls, a summon placed
+  from a roof down to the street lands in the street instead of hanging at roof height, and a spot
+  is refused only if the summoner can't see the ground there or the top of the creature. Linked
+  summons follow the same rule. Range counts the drop as well, so spots near the edge of the range
+  ring can be out of range from high up. The placement label shows the elevation you're targeting.
 
 ### Changed
 - **Summoning** and **Summon Augment** are hidden on items that don't use them. Tick them under **Optional Sections** on the same tab to show them (shared sheet kit 1.8.0).

@@ -112,7 +112,7 @@ cancelling it cancels the spell. The quantity is rolled (with Dice So Nice, if y
 spell's chat card gets a **Summons** section showing the roll and what's being summoned.
 
 Then place each creature on the map within range. Right-click or Esc stops early, and
-**Place remaining** on the chat card picks up where you left off.
+**Place remaining** on the chat card picks up where you left off. With Astora's Sight Over Walls, a summon lands on the roof or floor you point at, the placement label shows that elevation, and a spot is refused only if the summoner can't see the ground there or the top of the creature. Range then counts height too, so from high up, spots just inside the range ring can be out of range. Otherwise it appears at the summoner's elevation.
 
 ### Passing data to summons
 

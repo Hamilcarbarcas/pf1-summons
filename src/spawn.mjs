@@ -47,6 +47,7 @@ async function animateIn(plan, point) {
 async function spawnLinked(plan, actor, pos, messageId) {
   const scene = canvas.scene;
   const marker = markerFor(plan, messageId);
+  const elevation = pos.elevation === undefined ? {} : { elevation: pos.elevation };
   const existing = scene.tokens.find((t) => t.actorId === actor.id);
 
   if (existing) {
@@ -56,13 +57,13 @@ async function spawnLinked(plan, actor, pos, messageId) {
       (await gmRun("updateDocuments", {
         type: "Token",
         parentUuid: scene.uuid,
-        updates: [{ _id: existing.id, x: pos.x, y: pos.y, [`flags.${MODULE_ID}.summon`]: marker }],
+        updates: [{ _id: existing.id, x: pos.x, y: pos.y, ...elevation, [`flags.${MODULE_ID}.summon`]: marker }],
         options: { animate: false },
       })) ?? [];
     return uuid ? fromUuid(uuid) : null;
   }
 
-  const doc = await actor.getTokenDocument({ x: pos.x, y: pos.y, flags: { [MODULE_ID]: { summon: marker } } }, { parent: scene });
+  const doc = await actor.getTokenDocument({ x: pos.x, y: pos.y, ...elevation, flags: { [MODULE_ID]: { summon: marker } } }, { parent: scene });
   await animateIn(plan, centerOf(pos, actor));
   const [uuid] = (await gmRun("createDocuments", { type: "Token", data: [doc.toObject()], parentUuid: scene.uuid })) ?? [];
   return uuid ? fromUuid(uuid) : null;
@@ -73,7 +74,7 @@ async function spawnUnlinked(plan, actor, pos, items, messageId) {
   const overrides = {
     x: pos.x,
     y: pos.y,
-    elevation: plan.elevation ?? 0,
+    elevation: pos.elevation ?? plan.elevation ?? 0,
     flags: { [MODULE_ID]: { summon: markerFor(plan, messageId) } },
   };
   if (plan.disposition !== null && plan.disposition !== undefined) overrides.disposition = plan.disposition;
@@ -97,7 +98,7 @@ async function spawnUnlinked(plan, actor, pos, items, messageId) {
  * @param {object} plan       Serializable cast plan (§7.2).
  * @param {object} entry      Queue entry `{ actorUuid, linked }`.
  * @param {Actor} actor       Resolved world actor.
- * @param {{x: number, y: number}} pos  Footprint top-left.
+ * @param {{x: number, y: number, elevation?: number}} pos  Footprint top-left, and where it landed.
  * @param {object[]} items    Resolved config item data.
  * @param {string|null} messageId
  * @returns {Promise<TokenDocument|null>}
