@@ -25,8 +25,12 @@ function rangeLimit(range, fp) {
 /** The footprint's center, which range, sight and landing height are all measured to. */
 const centerOf = (topLeft, fp) => ({ x: topLeft.x + fp.px / 2, y: topLeft.y + fp.py / 2 });
 
-/** astora-mod's answer for a spot, `{ elevation, clear }`, or null when it has none. §7.3 */
-const landingAt = (token, point, actor) => game.astoraMod?.sightOverWalls?.landing?.(token, point, { actor }) ?? null;
+/** pf1-cover-and-sight's answer for a spot, `{ elevation, clear }`, or null when it has none. §7.3 */
+function landingAt(token, point, actor) {
+  const mod = game.modules.get("pf1-cover-and-sight");
+  if (!mod?.active) return null;
+  return mod.api?.sightOverWalls?.landing?.(token, point, { actor }) ?? null;
+}
 
 /** The placement label, with the height the summon would land at once there is one. §7.3 */
 function labelAt(label, landing) {

@@ -58,7 +58,7 @@ Earlier releases: see [GitHub Releases](https://github.com/Hamilcarbarcas/pf1-su
   drawn.
 - **Placement's line-of-sight check respects Wall Height.** A summoner standing above a wall can
   place a summon past it, instead of being refused as out of sight.
-- **Summons land on the surface you point at.** With Astora's Sight Over Walls, a summon placed
+- **Summons land on the surface you point at.** With PF1 Cover and Sight's sight over walls (formerly Astora's), a summon placed
   from a roof down to the street lands in the street instead of hanging at roof height, and a spot
   is refused only if the summoner can't see the ground there or the top of the creature. Linked
   summons follow the same rule. Range counts the drop as well, so spots near the edge of the range
